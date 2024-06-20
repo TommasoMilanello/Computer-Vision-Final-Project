@@ -45,8 +45,10 @@ int main(int argc, char** argv)
 		if (frame.empty())
 			break;
 
+		imshow("Original", frame);
+		Mat test = frame.clone();
 
-		
+
 		// find average RGB values in the center since the table is always centered
 		std::vector<cv::Vec3b> pixels;
 		for (int i = frame.rows / 2 - 20; i < frame.rows / 2 + 20; i++) {
@@ -67,7 +69,7 @@ int main(int argc, char** argv)
 		green /= pixels.size();
 		red /= pixels.size();
 
-		int t = 10;
+		int t = 75;
 
 		for (int i = 0; i < frame.rows; i++) {
 			for (int j = 0; j < frame.cols; j++) {
@@ -78,10 +80,13 @@ int main(int argc, char** argv)
 			}
 		}
 		
-		findHoughLines(&frame);
+		Mat segmented = segmentTable(test);
+
+		//findHoughLines(&frame);
 
 		// Display the resulting frame
 		imshow("Frame", frame);
+		imshow("Segmented", segmented);
 		//waitKey(0);
 		// Press  ESC on keyboard to exit
 		char c = (char)waitKey(25);
@@ -89,48 +94,19 @@ int main(int argc, char** argv)
 			break;
 	}
 	
+	// GAME 2 CLIP 1 SUCKS RIGHT NOW!!!!!!!!!!!!!
 
 	capture.release();
 
 	// Closes all the frames
 	destroyAllWindows();
 
-	/*Mat img = imread("C:\\Users\\tomma\\Desktop\\Università\\Computer Vision\\Final_project_CV\\Final_Project_CV\\Dataset\\game1_clip1\\masks\\frame_first.PNG", IMREAD_GRAYSCALE);
-	if (img.empty())
-		cout << "ERROR!!";
-	imshow("img1", img);
-
-
-	Mat color;
-	cvtColor(img, color, COLOR_GRAY2BGR);
-
-
-	for (int i = 0; i < img.cols; i++) {
-		for (int j = 0; j < img.rows; j++) {
-			if (img.at<uchar>(i, j) == 0)
-				color.Mat::at<Vec3b>(i, j) = (128, 128, 128);
-			if (img.at<uchar>(i, j) == 1)
-				color.Mat::at<Vec3b>(i, j) = (255, 255, 255);
-			if (img.at<uchar>(i, j) == 2)
-				color.Mat::at<Vec3b>(i, j) = (0, 0, 0);
-			if (img.at<uchar>(i, j) == 3)
-				color.Mat::at<Vec3b>(i, j) = (0, 0, 255);
-			if (img.at<uchar>(i, j) == 4)
-				color.Mat::at<Vec3b>(i, j) = (255, 0, 0);
-			if (img.at<uchar>(i, j) == 5)
-				color.Mat::at<Vec3b>(i, j) = (0, 255, 0);
-		}
-	}
 	
-	imshow("img", color);
-
-	waitKey(0);
-	*/
 	return 0;
 }
 
-//hours of work: 4
-//Today started at 15:30
+//hours of work: 6
+//Today started at 15:10
 
 
 /*cout << "\nSEGMENT NOW!!!!\n";

@@ -7,40 +7,40 @@
 //in the middle of the frame we sould manage to segment the table
 cv::Mat segmentTable(const cv::Mat& frame)
 {
-    cv::Mat segmentedFrameHSV;
-    cv::cvtColor(frame, segmentedFrameHSV, cv::COLOR_BGR2HSV);
-    //find the most frequent hue value in a 100x100 kernel in the middle of the image
-    std::map<uchar, int> pixels;
-    for (int i = segmentedFrameHSV.rows/2 - 50; i < segmentedFrameHSV.rows/2 + 50; i++)
-    {
-        for (int j = segmentedFrameHSV.cols/2 - 50; j < segmentedFrameHSV.cols/2 + 50; j++) {
-            pixels[segmentedFrameHSV.at<cv::Vec3b>(i,j)[2]]++;
-        }
-    }
-    // now find the most frequent inside the map and segment the frame with only the table hue value
-    std::map<uchar, int>::iterator it = pixels.begin();
+	cv::Mat segmented = frame.clone();
+	cv::Mat HSV;
+	cv::cvtColor(frame, HSV, cv::COLOR_BGR2HSV);
+	std::vector<cv::Vec3b> pixels;
+	for (int i = HSV.rows / 2 - 20; i < HSV.rows / 2 + 20; i++) {
+		for (int j = HSV.cols / 2 - 20; j < HSV.cols / 2 + 20; j++) {
+			pixels.push_back(HSV.at<cv::Vec3b>(i, j));
+		}
+	}
+	int hue = 0;
+	int saturation = 0;
+	int value = 0;
+	for (auto pixel : pixels) {
+		hue += static_cast<int>(pixel[0]);
+		saturation += static_cast<int>(pixel[1]);
+		value += static_cast<int>(pixel[2]);
+	}
+	hue /= pixels.size();
+	saturation /= pixels.size();
+	value /= pixels.size();
 
-    uchar mostRepeated = it->first;
-    int freq = it->second;
-    while (it != pixels.end()) {
-        if (it->second > freq) {
-            mostRepeated = it->first;
-            freq = it->second;
-        }
-    }
+	int t_h = 10;
+	int t_s = 100;
+	int t_v = 100;
 
-    for (int i = 0; i < segmentedFrameHSV.rows; i++)
-    {
-        for (int j = 0; i < segmentedFrameHSV.cols; j++) {
-            if (segmentedFrameHSV.at<cv::Vec3b>(i, j)[2] != mostRepeated)
-                segmentedFrameHSV.at<cv::Vec3b>(i, j)[2] = mostRepeated;
-        }
-    }
-
-    cv::Mat segmentedFrame;
-    cv::cvtColor(segmentedFrameHSV, segmentedFrame, cv::COLOR_HSV2BGR);
-
-    return segmentedFrameHSV;
+	for (int i = 0; i < frame.rows; i++) {
+		for (int j = 0; j < frame.cols; j++) {
+			if ((std::abs(HSV.at<cv::Vec3b>(i, j)[0] - hue) <= t_h && std::abs(HSV.at<cv::Vec3b>(i, j)[1] - saturation) <= t_s && std::abs(HSV.at<cv::Vec3b>(i, j)[2] - value) <= t_v))
+				segmented.at<cv::Vec3b>(i, j) = cv::Vec3b(255, 255, 255);
+			else
+				segmented.at<cv::Vec3b>(i, j) = cv::Vec3b(0, 0, 0);
+		}
+	}
+	return segmented;
 }
 
 void findHoughLines(cv::Mat* src)
