@@ -28,9 +28,14 @@ cv::Mat segmentTable(const cv::Mat& frame)
 	saturation /= pixels.size();
 	value /= pixels.size();
 
+	// standard thresholds:
+	//int t_h = 10;
+	//int t_s = 70;
+	//int t_v = 144;
+
 	int t_h = 10;
-	int t_s = 100;
-	int t_v = 100;
+	int t_s = 70;
+	int t_v = 144;
 
 	for (int i = 0; i < frame.rows; i++) {
 		for (int j = 0; j < frame.cols; j++) {
@@ -43,23 +48,62 @@ cv::Mat segmentTable(const cv::Mat& frame)
 	return segmented;
 }
 
-void findHoughLines(cv::Mat* src)
+void findHoughLines(cv::Mat& src)
 {
     cv::Mat gray;
-    cv::cvtColor(*src, gray, cv::COLOR_BGR2GRAY);
+    cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
+
+	//cv::GaussianBlur(gray, gray, cv::Size(5, 5), 0,0);
+
     // Store the edges 
     cv::Mat edges;
     // Find the edges in the image using canny detector
-    Canny(gray, edges, 60, 240);
+    cv::Canny(gray, edges, 120, 240); //Canny(gray, edges, 60, 240);
     imshow("Edges", edges);
     // Create a vector to store lines of the image
-    std::vector<cv::Vec4i> lines;
+    std::vector<cv::Vec3f> lines;
     // Apply Hough Transform
-    int thresh = 210;
-    cv::HoughLinesP(edges, lines, 1, CV_PI / 180, thresh, 10, 250);
+    int thresh = 0;
+    cv::HoughLines(edges, lines, 2, CV_PI / 90, thresh);	//cv::HoughLines(edges, lines, 2, CV_PI / 90, thresh);
+	sort(lines.begin(), lines.end(), [](const cv::Vec3f& a, const cv::Vec3f& b) {
+		return a[2] > b[2];
+		});
     // Draw lines on the image
-    for (size_t i = 0; i < lines.size(); i++) {
-        cv::Vec4i l = lines[i];
+	for (size_t i = 0; i < 4; i++) {
+		float rho = lines[i][0], theta = lines[i][1];
+		cv::Point pt1, pt2;
+		double a = cos(theta), b = sin(theta);   
+		double x0 = a * rho, y0 = b * rho;
+		pt1.x = cvRound(x0 + 1000 * (-b));   
+		pt1.y = cvRound(y0 + 1000 * (a));
+		pt2.x = cvRound(x0 - 1000 * (-b));   
+		pt2.y = cvRound(y0 - 1000 * (a));
+		line(src, pt1, pt2, cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
+	}
+    /*for (size_t i = 0; i < lines.size(); i++) {
+        cv::Vec3f l = lines[i];
         cv::line(*src, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), cv::Scalar(0, 0, 255), 3, cv::LINE_AA);
-    }
+    }*/
+}
+
+std::vector<cv::Mat> multipleImRead(const std::string& path, const std::string& pattern)
+{
+	std::vector<cv::Mat> images;
+	std::vector<cv::String> filenames;
+
+	cv::utils::fs::glob(
+		path, pattern, filenames
+	);
+	if (filenames.empty())
+	{
+		std::cout << "Image folder path not valid";
+	}
+	else
+	{
+		for (int i = 0; i < filenames.size(); i++)
+		{
+			images.push_back(cv::imread(filenames[i]));
+		}
+	}
+	return images;
 }

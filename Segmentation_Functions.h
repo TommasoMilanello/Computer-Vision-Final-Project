@@ -4,4 +4,7 @@
 
 
 cv::Mat segmentTable(const cv::Mat& frame);
-void findHoughLines(cv::Mat* src);
+
+void findHoughLines(cv::Mat& src);
+
+std::vector<cv::Mat> multipleImRead(const std::string& path, const std::string& pattern);

@@ -24,88 +24,85 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
+	std::string path = argv[1];
+	cv::String pattern = "*.png";
 
-	string video = argv[1];
+	std::vector<cv::Mat> images = multipleImRead(path, pattern);
 
-	VideoCapture capture(video);
-
-	// Check if camera opened successfully
-	if (!capture.isOpened()) {
-		cout << "Error opening video stream or file" << endl;
-		return -1;
-	}
-
-	while (1) {
-
-		Mat frame;
-		// Capture frame-by-frame
-		capture >> frame;
-
-		// If the frame is empty, break immediately
-		if (frame.empty())
-			break;
-
-		imshow("Original", frame);
-		Mat test = frame.clone();
-
-
-		// find average RGB values in the center since the table is always centered
-		std::vector<cv::Vec3b> pixels;
-		for (int i = frame.rows / 2 - 20; i < frame.rows / 2 + 20; i++) {
-			for (int j = frame.cols / 2 - 20; j < frame.cols / 2 + 20; j++) {
-				pixels.push_back(frame.at<cv::Vec3b>(i, j));
-				//frame.at<cv::Vec3b>(i, j) = (0, 255, 0);
-			}
-		}
-		int blue = 0;
-		int green = 0;
-		int red = 0;
-		for (auto pixel : pixels) {
-			blue += static_cast<int>(pixel[0]);
-			green += static_cast<int>(pixel[1]);
-			red += static_cast<int>(pixel[2]);
-		}
-		blue /= pixels.size();
-		green /= pixels.size();
-		red /= pixels.size();
-
-		int t = 75;
-
-		for (int i = 0; i < frame.rows; i++) {
-			for (int j = 0; j < frame.cols; j++) {
-				if ((std::abs(frame.at<cv::Vec3b>(i, j)[0] - blue) <= t && std::abs(frame.at<cv::Vec3b>(i, j)[1] - green) <= t && std::abs(frame.at<cv::Vec3b>(i, j)[2] - red) <= t))
-					frame.at<Vec3b>(i, j) = Vec3b(255,255,255);
-				else
-					frame.at<Vec3b>(i, j) = Vec3b(0, 0, 0);
-			}
-		}
+	for (int i = 0; i < images.size(); i++) {
+		Mat segmented;
+		segmented = segmentTable(images[i]);
 		
-		Mat segmented = segmentTable(test);
+		findHoughLines(segmented);
+		imshow(to_string(i), segmented);
 
-		//findHoughLines(&frame);
-
-		// Display the resulting frame
-		imshow("Frame", frame);
-		imshow("Segmented", segmented);
-		//waitKey(0);
-		// Press  ESC on keyboard to exit
-		char c = (char)waitKey(25);
-		if (c == 27)
-			break;
 	}
-	
-	// GAME 2 CLIP 1 SUCKS RIGHT NOW!!!!!!!!!!!!!
 
-	capture.release();
+	waitKey(0);
 
-	// Closes all the frames
-	destroyAllWindows();
-
-	
-	return 0;
+//	string video = argv[1];
+//
+//	VideoCapture capture(video);
+//
+//	// Check if camera opened successfully
+//	if (!capture.isOpened()) {
+//		cout << "Error opening video stream or file" << endl;
+//		return -1;
+//	}
+//
+//	bool first_frame = true;
+//
+//	while (1) {
+//
+//		Mat frame;
+//		// Capture frame-by-frame
+//		capture >> frame;
+//
+//		// If the frame is empty, break immediately
+//		if (frame.empty())
+//			break;
+//
+//		imshow("Original", frame);
+//
+//		Mat segmented;
+//
+//		if (first_frame)
+//		{
+//			Mat dilated;
+//			//erode(frame, dilated, getStructuringElement(MORPH_RECT, Size(9,9)));
+//			dilate(frame, dilated, getStructuringElement(MORPH_CROSS, Size(3,3)));
+//
+//			segmented = segmentTable(dilated);
+//
+//			findHoughLines(segmented);
+//			imshow("Segmented", segmented);
+//			waitKey(0);
+//			first_frame = false;
+//		}
+//
+//
+//
+//		// Display the resulting frame
+//		imshow("Frame", frame);
+//		imshow("Segmented", segmented);
+//		//waitKey(0);
+//		// Press  ESC on keyboard to exit
+//		char c = (char)waitKey(25);
+//		if (c == 27)
+//			break;
+//	}
+//	
+//
+//	capture.release();
+//
+//	// Closes all the frames
+//	destroyAllWindows();
+//
+//	
+//	return 0;
 }
 
-//hours of work: 6
+//hours of work: 10
 //Today started at 15:10
 
 
@@ -145,9 +142,3 @@ int main(int argc, char** argv)
 
 		*/
 
-
-/*	
-* 
-* 
-* 
-*/
