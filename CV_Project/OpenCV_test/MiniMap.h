@@ -5,18 +5,22 @@
 
 #include "BBox.h"
 
-const std::string WINDOW_NAME = "MiniMap";
 const std::string TABLE_SCHEME_PATH = "..//..//map_background.png";
 
 class MiniMap {
 public:
 	MiniMap(int nrows = 300, int ncols = 600);
-	void drawMiniMap(std::string windowName = WINDOW_NAME);
+	void drawMiniMapOnFrame(cv::Mat& frame) const;
 	void computeHomography(const std::vector<cv::Point> corners, const cv::Point center, int verbose = 1);
-	void projectOnMap(std::vector<BBox> bboxes);
-	void projectRawImageOnMap(const cv::Mat src);
+
+	void initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes);
+	void updateMiniMap(const std::vector<BBox> newBboxes, const cv::Point center);
+
+	void projectOnMap(std::vector<BBox> bboxes, cv::Point center);
 private:
 	const float PADDING = 0.1;
+	const float RESIZE_RATIO = 0.55;
+	const float RESIZE_PADDING = 0.01;
 	const std::vector<cv::Point2f> MAIN_POINTS_WITH_IMAGE = {
 		cv::Point(56, 48),
 		cv::Point(634, 48),
@@ -36,4 +40,6 @@ private:
 	cv::Mat MapImg;
 	std::vector<cv::Point2f> TableMainPoints;
 	cv::Mat H;
+	std::vector<cv::Point> ballCenters;
+	std::vector<int> ballCategID;
 };

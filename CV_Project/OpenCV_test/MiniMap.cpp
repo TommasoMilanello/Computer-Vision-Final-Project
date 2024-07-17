@@ -23,32 +23,44 @@ float avgMaxRadius(std::vector<BBox> bboxes) {
 }
 
 MiniMap::MiniMap(int nrows, int ncols) {
-	this->MapImg.create(nrows, ncols, CV_8UC3);
+	//this->MapImg.create(nrows, ncols, CV_8UC3);
 
-	// fix corners of the projected table
-	int displacmentRows = cvRound(nrows * PADDING / 2);
-	int displacmentCols = cvRound(ncols * PADDING / 2);
-	// the indications in the comments refers to an horizontal table, as in the minimap
-	this->TableMainPoints.push_back(cv::Point2f(displacmentCols, displacmentRows));					// top-left
-	this->TableMainPoints.push_back(cv::Point2f(ncols - displacmentCols, displacmentRows));			// top-right
-	this->TableMainPoints.push_back(cv::Point2f(ncols - displacmentCols, nrows - displacmentRows));	// bottom-right
-	this->TableMainPoints.push_back(cv::Point2f(displacmentCols, nrows - displacmentRows)); 		// bottom-left
-	this->TableMainPoints.push_back(cv::Point2f(
-		displacmentCols + cvRound((float)ncols * (1 - PADDING) / 2),
-		displacmentRows + cvRound((float)nrows * (1 - PADDING) / 2)
-	)); 		// center
+	//// fix corners of the projected table
+	//int displacmentRows = cvRound(nrows * PADDING / 2);
+	//int displacmentCols = cvRound(ncols * PADDING / 2);
+	//// the indications in the comments refers to an horizontal table, as in the minimap
+	//this->TableMainPoints.push_back(cv::Point2f(displacmentCols, displacmentRows));					// top-left
+	//this->TableMainPoints.push_back(cv::Point2f(ncols - displacmentCols, displacmentRows));			// top-right
+	//this->TableMainPoints.push_back(cv::Point2f(ncols - displacmentCols, nrows - displacmentRows));	// bottom-right
+	//this->TableMainPoints.push_back(cv::Point2f(displacmentCols, nrows - displacmentRows)); 		// bottom-left
+	//this->TableMainPoints.push_back(cv::Point2f(
+	//	displacmentCols + cvRound((float)ncols * (1 - PADDING) / 2),
+	//	displacmentRows + cvRound((float)nrows * (1 - PADDING) / 2)
+	//)); 		// center
 
-	cv::rectangle(this->MapImg, this->TableMainPoints[0], this->TableMainPoints[2], cv::Scalar(0, 0, 0));
-	cv::circle(this->MapImg, this->TableMainPoints[4], 10, cv::Scalar(0, 0, 0), 1);
-	
-	
-	/*this->MapImg = cv::imread(TABLE_SCHEME_PATH);
-	this->TableMainPoints = MiniMap::MAIN_POINTS_WITH_IMAGE;	*/
+	//cv::rectangle(this->MapImg, this->TableMainPoints[0], this->TableMainPoints[2], cv::Scalar(0, 0, 0));
+	//cv::circle(this->MapImg, this->TableMainPoints[4], 10, cv::Scalar(0, 0, 0), 1);
+
+
+	this->MapImg = cv::imread(TABLE_SCHEME_PATH);
+	this->TableMainPoints = MiniMap::MAIN_POINTS_WITH_IMAGE;
 }
 
-void MiniMap::drawMiniMap(std::string windowName) {
-	cv::namedWindow(windowName);
-	cv::imshow(windowName, this->MapImg);
+void MiniMap::drawMiniMapOnFrame(cv::Mat& frame) const {
+	cv::Rect miniMapOnFrameShape;
+	cv::Mat resizedMap;
+
+	cv::resize(this->MapImg, resizedMap, cv::Size(), this->RESIZE_RATIO, this->RESIZE_RATIO);
+
+	miniMapOnFrameShape = cv::Rect(
+		cvRound(frame.cols * RESIZE_PADDING),
+		cvRound((frame.rows * (1 - RESIZE_PADDING)) - resizedMap.rows),
+		resizedMap.cols,
+		resizedMap.rows
+	);
+	//std::cout << "Rect: " << miniMapOnFrameShape << std::endl;
+
+	resizedMap.copyTo(frame(miniMapOnFrameShape));
 }
 
 void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::Point center, int verbose) {
@@ -146,9 +158,26 @@ void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::
 	}
 }
 
-void MiniMap::projectOnMap(std::vector<BBox> bboxes) {
-	std::vector<cv::Point> ballCenters;
-	std::vector<int> categId;
+void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes) {
+	this->computeHomography(corners, center);
+
+	this->ballCenters.clear();
+	this->ballCategID.clear();
+	for (auto& bbox : bboxes) {
+		this->ballCenters.push_back(bbox.getCenter());
+		this->ballCategID.push_back(bbox.getCategID());
+	}
+
+	this->projectOnMap(bboxes, center);
+}
+
+void MiniMap::updateMiniMap(const std::vector<BBox> newBboxes, const cv::Point center) {
+	for (int i = 0; i < newBboxes.size(); ++i) {
+		//TODO
+	}
+}
+
+void MiniMap::projectOnMap(std::vector<BBox> bboxes, cv::Point center) {
 	cv::Mat pointAsMat, projectedPointAsMat, radiusAsMat, projectedRadiusAsMat;
 	cv::Point projectedPoint;
 	float radius, projectedRadius;
@@ -156,23 +185,21 @@ void MiniMap::projectOnMap(std::vector<BBox> bboxes) {
 	// we approx the radius on the minimap picking the max avg raidus of the ball
 	// then we apply it on an ipothetic ball in the center and then apply the homography to translate the dimension
 	radius = avgMaxRadius(bboxes);
-	radiusAsMat = (cv::Mat_<double>(3, 1) << radius + this->TableMainPoints[4].x,
-		this->TableMainPoints[4].y,
+	radiusAsMat = (cv::Mat_<double>(3, 1) << radius + center.x,
+		center.y,
 		1);
-	std::cout << "Point: " << radiusAsMat << std::endl;
 	projectedRadiusAsMat = this->H * radiusAsMat;
 	projectedRadiusAsMat /= projectedRadiusAsMat.at<double>(2);
-	projectedRadius = static_cast<float>(projectedRadiusAsMat.at<double>(0, 0) - this->TableMainPoints[4].x);
-
-	for (auto& bbox : bboxes) {
-		ballCenters.push_back(bbox.getCenter());
-		categId.push_back(bbox.getCategID());
-	}
+	projectedRadius = euclideanDistance(cv::Point(
+		projectedRadiusAsMat.at<double>(0, 0),
+		projectedRadiusAsMat.at<double>(1, 0)
+	), this->TableMainPoints[4]);
+	//std::cout << "Radius: " << projectedRadius << std::endl;
 
 	for (int i = 0; i < ballCenters.size(); ++i) {
-		pointAsMat = (cv::Mat_<double>(3, 1) << ballCenters[i].x,
-												ballCenters[i].y,
-												1);
+		pointAsMat = (cv::Mat_<double>(3, 1) << this->ballCenters[i].x,
+			this->ballCenters[i].y,
+			1);
 		//std::cout << "Point size: " << pointAsMat.size() << std::endl;
 		projectedPointAsMat = this->H * pointAsMat;
 		projectedPointAsMat /= projectedPointAsMat.at<double>(2);
@@ -182,11 +209,7 @@ void MiniMap::projectOnMap(std::vector<BBox> bboxes) {
 		);
 
 		//std::cout << "Projected Point: " << projectedPoint << std::endl;
-		cv::circle(this->MapImg, projectedPoint, projectedRadius, OBJECT_COLORS_BASED_ON_CATEG_ID[categId[i]], cv::FILLED);
-		cv::circle(this->MapImg, projectedPoint, projectedRadius, cv::Scalar(0, 0, 0), 1);
+		cv::circle(this->MapImg, projectedPoint, cvRound(projectedRadius), OBJECT_COLORS_BASED_ON_CATEG_ID[this->ballCategID[i]], cv::FILLED);
+		cv::circle(this->MapImg, projectedPoint, cvRound(projectedRadius), cv::Scalar(0, 0, 0), 1);
 	}
-}
-
-void MiniMap::projectRawImageOnMap(const cv::Mat src) {
-	cv::warpPerspective(src, this->MapImg, this->H, this->MapImg.size());
 }

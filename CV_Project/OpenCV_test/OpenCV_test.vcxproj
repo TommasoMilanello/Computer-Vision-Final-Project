@@ -143,21 +143,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BallDetector.cpp" />
+    <ClCompile Include="BallDetection.cpp" />
     <ClCompile Include="Bbox.cpp" />
-    <ClCompile Include="LinesDetector.cpp" />
+    <ClCompile Include="DisplayFunctions.cpp" />
     <ClCompile Include="MiniMap.cpp" />
-    <ClCompile Include="Seed.cpp" />
-    <ClCompile Include="Segmentator.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TableDetection.cpp" />
+    <ClCompile Include="TrackerFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BallDetector.h" />
+    <ClInclude Include="BallDetection.h" />
     <ClInclude Include="Bbox.h" />
-    <ClInclude Include="LinesDetector.h" />
+    <ClInclude Include="DisplayFunctions.h" />
     <ClInclude Include="MiniMap.h" />
-    <ClInclude Include="Seed.h" />
-    <ClInclude Include="Segmentator.h" />
+    <ClInclude Include="TableDetection.h" />
+    <ClInclude Include="TrackerFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
