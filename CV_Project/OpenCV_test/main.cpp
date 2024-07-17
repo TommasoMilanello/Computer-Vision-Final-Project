@@ -98,7 +98,7 @@ int main(int argc, char** argv) {
 		////////////////////////////////////////////
 		//Draw tracking lines here
 		///////////////////////////////////////////
-		map.updateMiniMap(newBBoxes); // TODO! see MiniMap.cpp
+		map.updateMiniMap(newBBoxes, center); // TODO! see MiniMap.cpp
 
 		switch (*argv[2])
 		{
