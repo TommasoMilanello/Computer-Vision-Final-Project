@@ -11,7 +11,7 @@
 const std::string TABLE_SCHEME_PATH = "./map_background.png";
 const float RESIZE_RATIO = 0.55;
 const float RESIZE_PADDING = 0.01;
-const int FIXED_RADIUS = 12;
+const int FIXED_RADIUS = 6;
 const std::vector<cv::Point2f> MAIN_POINTS_WITH_IMAGE = {
 	cv::Point(56, 48),
 	cv::Point(634, 48),
@@ -29,13 +29,14 @@ public:
 	void initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes, bool approxRadius = false);
 	void updateMiniMap(const std::vector<BBox> newBboxes);
 
-	void projectOnMap(const std::vector<BBox> bboxes);
+	void projectLastFrameOnMap();
 private:
+	cv::Mat Background;
 	cv::Mat MapImg;
 	std::vector<cv::Point2f> TableMainPoints;
 	cv::Mat H;
 	int radius;
-	std::vector<cv::Point> ballCenters;
+	std::vector<std::vector<cv::Point>> ballCentersHistory;
 	std::vector<int> ballCategID;
 };
 

@@ -21,8 +21,23 @@ float avgMaxRadius(std::vector<BBox> bboxes) {
 	return result / bboxes.size();
 }
 
+cv::Point projectPoint(cv::Point point, cv::Mat homographyMatrix) {
+	cv::Mat pointAsMat, projectedPointAsMat;
+
+	pointAsMat = (cv::Mat_<double>(3, 1) << point.x,
+			point.y,
+			1);
+	projectedPointAsMat = homographyMatrix * pointAsMat;
+	projectedPointAsMat /= projectedPointAsMat.at<double>(2);
+
+	return cv::Point(
+			cvRound(projectedPointAsMat.at<double>(0, 0)),
+			cvRound(projectedPointAsMat.at<double>(1, 0))
+		);
+}
+
 MiniMap::MiniMap() {
-	this->MapImg = cv::imread(TABLE_SCHEME_PATH);
+	this->Background = cv::imread(TABLE_SCHEME_PATH);
 	this->TableMainPoints = MAIN_POINTS_WITH_IMAGE;
 }
 
@@ -138,16 +153,16 @@ void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::
 void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes, bool approxRadius) {
 	this->computeHomography(corners, center);
 
-	this->ballCenters.clear();
-	this->ballCategID.clear();
-	for (auto& bbox : bboxes) {
-		this->ballCenters.push_back(bbox.getCenter());
-		this->ballCategID.push_back(bbox.getCategID());
-	}
-
+	this->MapImg = this->Background.clone();
 	this->radius = FIXED_RADIUS;
 	float estimatedRadius;
 	cv::Mat radiusAsMat, projectedRadiusAsMat;
+
+	for (auto& bbox : bboxes) {
+		this->ballCentersHistory.push_back(std::vector<cv::Point>{projectPoint(bbox.getCenter(), this->H)});
+		this->ballCategID.push_back(bbox.getCategID());
+	}
+
 	// we approx the radius on the minimap picking the max avg raidus of the ball is approxRadius = true
 	// then we apply it on an ipothetic ball in the center and then apply the homography to translate the dimension
 	if (approxRadius) {
@@ -163,33 +178,34 @@ void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point 
 		), this->TableMainPoints[4]);
 	}
 
-	this->projectOnMap(bboxes);
+	this->projectLastFrameOnMap();
 }
 
 void MiniMap::updateMiniMap(const std::vector<BBox> newBboxes) {
+	this->MapImg = this->Background.clone();
+
 	for (int i = 0; i < newBboxes.size(); ++i) {
-		cv::line(this->MapImg, this->ballCenters[i], newBboxes[i].getCenter(), cv::Scalar(0, 0, 0));
+		cv::Point projectedCenter = projectPoint(newBboxes[i].getCenter(), this->H);
+		if (this->ballCentersHistory[i].back() != projectedCenter) {
+			this->ballCentersHistory[i].push_back(projectedCenter);
+		}
 	}
 
-	this->projectOnMap(newBboxes);
+	for (int i = 0; i < this->ballCentersHistory.size(); ++i) {
+		std::vector<cv::Point> ballHistory = this->ballCentersHistory[i];
+		if (ballHistory.size() > 1) {
+			for (int j = 0; j < ballHistory.size() - 1; ++j) {
+				cv::line(this->MapImg, ballHistory[j], ballHistory[j + 1], cv::Scalar(0, 0, 0));
+			}
+		}
+	}
+
+	this->projectLastFrameOnMap();
 }
 
-void MiniMap::projectOnMap(const std::vector<BBox> bboxes) {
-	cv::Mat pointAsMat, projectedPointAsMat;
-	cv::Point projectedPoint;
-
-	for (int i = 0; i < ballCenters.size(); ++i) {
-		pointAsMat = (cv::Mat_<double>(3, 1) << this->ballCenters[i].x,
-			this->ballCenters[i].y,
-			1);
-		projectedPointAsMat = this->H * pointAsMat;
-		projectedPointAsMat /= projectedPointAsMat.at<double>(2);
-		projectedPoint = cv::Point(
-			cvRound(projectedPointAsMat.at<double>(0, 0)),
-			cvRound(projectedPointAsMat.at<double>(1, 0))
-		);
-
-		cv::circle(this->MapImg, projectedPoint, cvRound(this->radius), BBox::OBJECT_COLORS_BASED_ON_CATEG_ID[this->ballCategID[i]], cv::FILLED);
-		cv::circle(this->MapImg, projectedPoint, cvRound(this->radius), cv::Scalar(0, 0, 0), 1);
+void MiniMap::projectLastFrameOnMap() {
+	for (int i = 0; i < this->ballCentersHistory.size(); ++i) {
+		cv::circle(this->MapImg, this->ballCentersHistory[i].back(), cvRound(this->radius), BBox::OBJECT_COLORS_BASED_ON_CATEG_ID[this->ballCategID[i]], cv::FILLED);
+		cv::circle(this->MapImg, this->ballCentersHistory[i].back(), cvRound(this->radius), cv::Scalar(0, 0, 0), 1);
 	}
 }

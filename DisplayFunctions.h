@@ -15,7 +15,7 @@ void drawSegmentationMask(const cv::Mat& src, cv::Mat& dst, const std::vector<cv
 
 void drawBallLocalization(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Point> vertices, const std::vector<BBox> bboxes, bool asBboxes = true);
 
-void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, const MiniMap& map);
+void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, const std::vector<BBox> bboxes, const MiniMap& map);
 
 //cv::Mat drawResults(cv::Mat& frame, std::vector<BBox> balls, const std::vector<cv::Point>& tableContour);
 

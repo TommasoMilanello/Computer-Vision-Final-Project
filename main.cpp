@@ -1,5 +1,6 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/tracking.hpp>
 #include <opencv2/tracking/tracking_legacy.hpp>
 #include <opencv2/core/utils/filesystem.hpp>
 #include <iostream>
@@ -107,6 +108,11 @@ int main(int argc, char** argv) {
 		bboxes = newBBoxes;
 		//trackBalls(frame, newBBoxes, trackers);
 		trackers.update(frame);
+		
+		for (int i = 0; i < trackers.getObjects().size(); ++i) {
+			Rect box = trackers.getObjects()[i];
+			newBBoxes[i] = BBox(box.x, box.y, box.width, box.height, bboxes[i].getCategID());
+		}
 
 		////////////////////////////////////////////
 		//Draw tracking lines here
@@ -126,7 +132,7 @@ int main(int argc, char** argv) {
 			drawSegmentation(frame, output, vertices, newBBoxes);
 			break;
 		case 3:
-			drawFrameWithMiniMap(frame, output, map);
+			drawFrameWithMiniMap(frame, output, newBBoxes, map);
 			break;
 		default:
 			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']" << std::endl;

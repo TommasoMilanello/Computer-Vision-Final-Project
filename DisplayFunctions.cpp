@@ -35,8 +35,12 @@ void drawBallLocalization(const cv::Mat& src, cv::Mat& dst, const std::vector<cv
 	}
 }
 
-void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, const MiniMap& map) {
+void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, const std::vector<BBox> bboxes, const MiniMap& map) {
 	dst = src.clone();
+
+	for (auto& bbox : bboxes) {
+		cv::rectangle(dst, bbox.asRect(), BBox::OBJECT_COLORS_BASED_ON_CATEG_ID[bbox.getCategID()]);
+	}
 
 	map.drawMiniMapOnFrame(dst);
 }
