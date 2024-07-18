@@ -5,7 +5,6 @@
 
 class BBox {
 public:
-	// copied from MiniMap!!!
 	static const std::vector<cv::Scalar> OBJECT_COLORS_BASED_ON_CATEG_ID;
 
 	BBox(int x, int y, int width, int height, int categID);

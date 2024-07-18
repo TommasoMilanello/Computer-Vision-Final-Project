@@ -46,50 +46,6 @@ cv::Mat extractRoi(const cv::Mat& image, cv::Point center, int radius) {
 }
 
 int classifyBall(const cv::Mat& roi) {
-	//cv::Mat hsvRoi;
-	//cv::cvtColor(roi, hsvRoi, cv::COLOR_BGR2HSV);
-	//cv::Scalar medianColor = mean(hsvRoi);
-
-	//cv::Scalar whiteLower(0, 0, 168);
-	//cv::Scalar whiteUpper(172, 111, 255);
-
-	//cv::Scalar blackLower(0, 0, 0);
-	//cv::Scalar blackUpper(180, 255, 50);
-
-	//if (whiteLower[0] <= medianColor[0] && medianColor[0] <= whiteUpper[0] &&
-	//	whiteLower[1] <= medianColor[1] && medianColor[1] <= whiteUpper[1] &&
-	//	whiteLower[2] <= medianColor[2] && medianColor[2] <= whiteUpper[2]) {
-	//	return 1;
-	//}
-
-	//if (blackLower[0] <= medianColor[0] && medianColor[0] <= blackUpper[0] &&
-	//	blackLower[1] <= medianColor[1] && medianColor[1] <= blackUpper[1] &&
-	//	blackLower[2] <= medianColor[2] && medianColor[2] <= blackUpper[2]) {
-	//	return 2;
-	//}
-
-	//cv::Mat grayRoi, grayRoiFormat;
-	//cvtColor(roi, grayRoi, cv::COLOR_BGR2GRAY);
-
-	////test
-	//grayRoi.convertTo(grayRoi, CV_32FC1);
-
-	//cv::Mat fTransform;
-	//dft(grayRoi, fTransform, cv::DFT_COMPLEX_OUTPUT);
-	//fTransform = fTransform(cv::Rect(0, 0, fTransform.cols & -2, fTransform.rows & -2));
-	//cv::Mat planes[] = { cv::Mat::zeros(fTransform.size(), CV_32F), cv::Mat::zeros(fTransform.size(), CV_32F) };
-	//split(fTransform, planes);
-	//magnitude(planes[0], planes[1], planes[0]);
-	//cv::Mat mag = planes[0];
-	//mag += cv::Scalar::all(1);
-	//cv::log(mag, mag);
-
-	//mag = mag(cv::Rect(0, 0, mag.cols & -2, mag.rows & -2));
-
-	//normalize(mag, mag, 0, 1, cv::NORM_MINMAX);
-
-	//double meanFrequency = mean(mag)[0];
-	//return meanFrequency > 115 ? 4 : 3;
 
 	cv::Mat hsv_roi, gray;
 	cv::cvtColor(roi, hsv_roi, cv::COLOR_BGR2HSV);
