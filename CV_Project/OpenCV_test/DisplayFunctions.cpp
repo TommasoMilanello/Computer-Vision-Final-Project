@@ -29,7 +29,7 @@ void drawBallLocalization(const cv::Mat& src, cv::Mat& dst, const std::vector<cv
 	}
 }
 
-void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, MiniMap& map) {
+void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, MiniMap map) {
 	dst = src.clone();
 
 	map.drawMiniMapOnFrame(dst);

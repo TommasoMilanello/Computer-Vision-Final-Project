@@ -91,31 +91,15 @@ int classifyBall(const cv::Mat& roi) {
 	//double meanFrequency = mean(mag)[0];
 	//return meanFrequency > 115 ? 4 : 3;
 
-	// Convert the ROI to HSV color space
-	cv::Mat hsv_roi;
+	cv::Mat hsv_roi, gray;
 	cv::cvtColor(roi, hsv_roi, cv::COLOR_BGR2HSV);
 
-	// Calculate the median color
-	std::vector<cv::Mat> channels;
-	cv::split(hsv_roi, channels);
-	std::vector<int> histSize = { 256 };
-	float range[] = { 0, 256 };
-	const float* histRange = { range };
-	cv::Mat hist;
-
-	std::vector<float> median_color(3);
-	for (int i = 0; i < 3; ++i) {
-		cv::calcHist(&channels[i], 1, 0, cv::Mat(), hist, 1, histSize.data(), &histRange, true, false);
-		int mid = roi.total() / 2;
-		int count = 0;
-		for (int j = 0; j < histSize[0]; ++j) {
-			count += hist.at<float>(j);
-			if (count > mid) {
-				median_color[i] = j;
-				break;
-			}
-		}
-	}
+	// Compute the median color in HSV
+	std::vector<cv::Mat> hsv_planes(3);
+	cv::split(hsv_roi, hsv_planes);
+	cv::Mat median_color;
+	cv::medianBlur(hsv_planes[0], median_color, 3); // Use a kernel size of 3 for median blur
+	cv::Scalar median = cv::mean(median_color);
 
 	cv::Scalar white_lower(0, 0, 168);
 	cv::Scalar white_upper(172, 111, 255);
@@ -123,53 +107,30 @@ int classifyBall(const cv::Mat& roi) {
 	cv::Scalar black_lower(0, 0, 0);
 	cv::Scalar black_upper(180, 255, 50);
 
-	cv::Scalar median_color_scalar(median_color[0], median_color[1], median_color[2]);
-
-	if ((white_lower <= median_color_scalar).all() && (median_color_scalar <= white_upper).all()) {
-		return 0;
-	}
-
-	if ((black_lower <= median_color_scalar).all() && (median_color_scalar <= black_upper).all()) {
+	// Check if the median color falls within the white or black range
+	if (cv::norm(median - white_lower) <= 255 && cv::norm(median - white_upper) <= 255) {
 		return 1;
 	}
 
-	// Convert the ROI to grayscale
-	cv::Mat gray_roi;
-	cv::cvtColor(roi, gray_roi, cv::COLOR_BGR2GRAY);
+	if (cv::norm(median - black_lower) <= 255 && cv::norm(median - black_upper) <= 255) {
+		return 2;
+	}
 
-	// Perform FFT
-	cv::Mat padded;
-	int m = cv::getOptimalDFTSize(gray_roi.rows);
-	int n = cv::getOptimalDFTSize(gray_roi.cols);
-	cv::copyMakeBorder(gray_roi, padded, 0, m - gray_roi.rows, 0, n - gray_roi.cols, cv::BORDER_CONSTANT, cv::Scalar::all(0));
-	cv::Mat planes[] = { cv::Mat_<float>(padded), cv::Mat::zeros(padded.size(), CV_32F) };
-	cv::Mat complexI;
-	cv::merge(planes, 2, complexI);
+	// Convert to grayscale and apply threshold
+	cv::cvtColor(roi, gray, cv::COLOR_BGR2GRAY);
+	cv::Mat thresholded;
+	cv::threshold(gray, thresholded, 130, 255, cv::THRESH_BINARY);
 
-	cv::dft(complexI, complexI);
-	cv::split(complexI, planes);
-	cv::magnitude(planes[0], planes[1], planes[0]);
-	cv::Mat magI = planes[0];
-	magI += cv::Scalar::all(1);
-	cv::log(magI, magI);
+	int total_pixels = thresholded.total();
+	int white_pixels = cv::countNonZero(thresholded);
 
-	magI = magI(cv::Rect(0, 0, magI.cols & -2, magI.rows & -2));
+	double white_proportion = static_cast<double>(white_pixels) / total_pixels;
+	double proportion_threshold = 0.2;
 
-	cv::Mat magI_shifted;
-	magI_shifted = magI(cv::Rect(magI.cols / 2, magI.rows / 2, magI.cols / 2, magI.rows / 2)).clone();
-	cv::hconcat(magI(cv::Rect(0, magI.rows / 2, magI.cols / 2, magI.rows / 2)), magI_shifted, magI_shifted);
-	cv::vconcat(magI(cv::Rect(magI.cols / 2, 0, magI.cols / 2, magI.rows / 2)), magI_shifted, magI_shifted);
-	magI_shifted = magI_shifted(cv::Rect(0, 0, magI.cols / 2, magI.rows / 2)).clone();
-
-	cv::normalize(magI_shifted, magI_shifted, 0, 1, cv::NORM_MINMAX);
-
-	double mean_frequency = cv::mean(magI_shifted)[0];
-	mean_frequency = 20 * std::log(mean_frequency);
-
-	if (mean_frequency > 115) {
-		return 4;
+	if (white_proportion > proportion_threshold) {
+		return 3;
 	}
 	else {
-		return 3;
+		return 4;
 	}
 }
