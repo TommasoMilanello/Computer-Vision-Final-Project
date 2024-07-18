@@ -158,7 +158,7 @@ void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::
 	}
 }
 
-void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes) {
+void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes, bool approxRadius) {
 	this->computeHomography(corners, center);
 
 	this->ballCenters.clear();
@@ -168,33 +168,35 @@ void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point 
 		this->ballCategID.push_back(bbox.getCategID());
 	}
 
-	this->projectOnMap(bboxes, center);
-}
-
-void MiniMap::updateMiniMap(const std::vector<BBox> newBboxes, const cv::Point center) {
-	for (int i = 0; i < newBboxes.size(); ++i) {
-		//TODO
-	}
-}
-
-void MiniMap::projectOnMap(std::vector<BBox> bboxes, cv::Point center) {
-	cv::Mat pointAsMat, projectedPointAsMat, radiusAsMat, projectedRadiusAsMat;
-	cv::Point projectedPoint;
-	float radius, projectedRadius;
-
-	// we approx the radius on the minimap picking the max avg raidus of the ball
+	this->radius = FIXED_RADIUS;
+	float estimatedRadius;
+	cv::Mat radiusAsMat, projectedRadiusAsMat;
+	// we approx the radius on the minimap picking the max avg raidus of the ball is approxRadius = true
 	// then we apply it on an ipothetic ball in the center and then apply the homography to translate the dimension
-	radius = avgMaxRadius(bboxes);
-	radiusAsMat = (cv::Mat_<double>(3, 1) << radius + center.x,
-		center.y,
-		1);
-	projectedRadiusAsMat = this->H * radiusAsMat;
-	projectedRadiusAsMat /= projectedRadiusAsMat.at<double>(2);
-	projectedRadius = euclideanDistance(cv::Point(
-		projectedRadiusAsMat.at<double>(0, 0),
-		projectedRadiusAsMat.at<double>(1, 0)
-	), this->TableMainPoints[4]);
-	//std::cout << "Radius: " << projectedRadius << std::endl;
+	if (approxRadius) {
+		estimatedRadius = avgMaxRadius(bboxes);
+		radiusAsMat = (cv::Mat_<double>(3, 1) << estimatedRadius + center.x,
+			center.y,
+			1);
+		projectedRadiusAsMat = this->H * radiusAsMat;
+		projectedRadiusAsMat /= projectedRadiusAsMat.at<double>(2);
+		this->radius = euclideanDistance(cv::Point(
+			projectedRadiusAsMat.at<double>(0, 0),
+			projectedRadiusAsMat.at<double>(1, 0)
+		), this->TableMainPoints[4]);
+	}
+
+	this->projectOnMap(bboxes);
+}
+
+void MiniMap::updateMiniMap(const std::vector<BBox> newBboxes) {
+	//TODO disegnare linee
+	//invocare projectOnMap con le nuove BBoxes	
+}
+
+void MiniMap::projectOnMap(const std::vector<BBox> bboxes) {
+	cv::Mat pointAsMat, projectedPointAsMat;
+	cv::Point projectedPoint;
 
 	for (int i = 0; i < ballCenters.size(); ++i) {
 		pointAsMat = (cv::Mat_<double>(3, 1) << this->ballCenters[i].x,
@@ -209,7 +211,7 @@ void MiniMap::projectOnMap(std::vector<BBox> bboxes, cv::Point center) {
 		);
 
 		//std::cout << "Projected Point: " << projectedPoint << std::endl;
-		cv::circle(this->MapImg, projectedPoint, cvRound(projectedRadius), OBJECT_COLORS_BASED_ON_CATEG_ID[this->ballCategID[i]], cv::FILLED);
-		cv::circle(this->MapImg, projectedPoint, cvRound(projectedRadius), cv::Scalar(0, 0, 0), 1);
+		cv::circle(this->MapImg, projectedPoint, cvRound(this->radius), OBJECT_COLORS_BASED_ON_CATEG_ID[this->ballCategID[i]], cv::FILLED);
+		cv::circle(this->MapImg, projectedPoint, cvRound(this->radius), cv::Scalar(0, 0, 0), 1);
 	}
 }

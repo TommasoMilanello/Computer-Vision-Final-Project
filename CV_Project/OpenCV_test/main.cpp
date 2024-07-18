@@ -15,22 +15,18 @@
 using namespace std;
 using namespace cv;
 
-std::vector<cv::Mat> multipleImRead(const std::string& path, const std::string& pattern);
-std::vector<std::vector<BBox>> multipleBBoxRead(const std::string& path, const std::string& pattern);
-cv::Point computeCenterOfTableShape(std::vector<cv::Point> vertices);
-cv::Point differenceVector(cv::Point p1, cv::Point p2);
-std::vector<BBox> convertIntoBBoxes(std::vector<std::tuple<cv::Point, int, int>> toBboxes);
+vector<Mat> multipleImRead(const string& path, const string& pattern);
+vector<vector<BBox>> multipleBBoxRead(const string& path, const string& pattern);
+Point computeCenterOfTableShape(vector<Point> vertices);
+Point differenceVector(Point p1, Point p2);
+vector<BBox> convertIntoBBoxes(vector<tuple<Point, int, int>> toBboxes);
 
 int main(int argc, char** argv) {
 
 	if (argc <= 2) {
-		std::cerr << "Usage: " << argv[0] << " video_path output_type[0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']";
+		cerr << "Usage: " << argv[0] << " video_path output_type[0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']";
 		return 0;
 	}
-
-	cv::Mat segmented, segmentedWithLines, dst, mask, output;
-	std::vector<cv::Vec3f> lines;
-	std::vector<cv::Point> vertices;
 
 	///////////////////////////////////////////
 	//We should do a flag in argv[2] that decides which output the program shows
@@ -59,11 +55,15 @@ int main(int argc, char** argv) {
 	/////////////////////////////////////
 
 	// get vertices of the table
+	Mat segmented, segmentedWithLines;
+	vector<cv::Vec3f> lines;
+	vector<cv::Point> vertices;
 	segmentRegionGrowing(frame, segmented);
 	detectLinesWithHoughTransform(segmented, segmentedWithLines, lines);
 	getRectFromLines(lines, vertices, 0);
 
 	// fill the mask for the table
+	Mat mask;
 	cv::drawContours(mask, std::vector<std::vector<cv::Point>>{vertices}, -1, 255, cv::FILLED);
 
 	// ball localization and classification
@@ -86,19 +86,21 @@ int main(int argc, char** argv) {
 	cv::Point center = computeCenterOfTableShape(vertices);
 	map.initMiniMap(vertices, center, bboxes);
 
+	Mat output;
 	imshow("Video", frame);
 
 	while (video.read(frame))
 	{
 		bboxes = newBBoxes;
 		for (int i = 0; i < bboxes.size(); i++) {
-			newBBoxes[i] = trackBall(frame, bboxes[i], trackers[i]);
+			newBBoxes[i] = trackBall(frame, newBBoxes[i], trackers[i]);
 		}
 
 		////////////////////////////////////////////
 		//Draw tracking lines here
 		///////////////////////////////////////////
 		map.updateMiniMap(newBBoxes, center); // TODO! see MiniMap.cpp
+
 
 		switch (*argv[2])
 		{

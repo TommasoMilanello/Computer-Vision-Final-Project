@@ -13,14 +13,15 @@ public:
 	void drawMiniMapOnFrame(cv::Mat& frame) const;
 	void computeHomography(const std::vector<cv::Point> corners, const cv::Point center, int verbose = 1);
 
-	void initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes);
-	void updateMiniMap(const std::vector<BBox> newBboxes, const cv::Point center);
+	void initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes, bool approxRadius = false);
+	void updateMiniMap(const std::vector<BBox> newBboxes);
 
-	void projectOnMap(std::vector<BBox> bboxes, cv::Point center);
+	void projectOnMap(const std::vector<BBox> bboxes);
 private:
 	const float PADDING = 0.1;
 	const float RESIZE_RATIO = 0.55;
 	const float RESIZE_PADDING = 0.01;
+	const int FIXED_RADIUS = 12;
 	const std::vector<cv::Point2f> MAIN_POINTS_WITH_IMAGE = {
 		cv::Point(56, 48),
 		cv::Point(634, 48),
@@ -40,6 +41,7 @@ private:
 	cv::Mat MapImg;
 	std::vector<cv::Point2f> TableMainPoints;
 	cv::Mat H;
+	int radius;
 	std::vector<cv::Point> ballCenters;
 	std::vector<int> ballCategID;
 };
