@@ -1,6 +1,6 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-#include <opencv2/tracking.hpp>
+#include <opencv2/tracking/tracking_legacy.hpp>
 #include <opencv2/core/utils/filesystem.hpp>
 #include <iostream>
 #include <fstream>
@@ -11,7 +11,6 @@
 #include "MiniMap.h"
 #include "SegmentationEvaluation.h"
 #include "TableDetection.h"
-#include "TrackerFunctions.h"
 
 using namespace std;
 using namespace cv;
@@ -75,12 +74,25 @@ int main(int argc, char** argv) {
 	//////////////////////////////////////
 	//INITIALIZE ALL THE TRACKERS
 	//////////////////////////////////////
-	std::vector<Ptr<cv::Tracker>> trackers(bboxes.size());
+	// std::vector<Ptr<cv::Tracker>> trackers(bboxes.size());
+	// std::vector<BBox> newBBoxes = bboxes;
+	// for (int i = 0; i < bboxes.size(); i++) {
+	// 	trackers[i] = TrackerCSRT::create();
+	// 	trackers[i]->init(frame, bboxes[i]);
+	// }
+
 	std::vector<BBox> newBBoxes = bboxes;
+
+	legacy::MultiTracker trackers;
+	vector<Rect2d> balls;
+	vector<Ptr<legacy::Tracker> > algorithms;
+
 	for (int i = 0; i < bboxes.size(); i++) {
-		trackers[i] = TrackerCSRT::create();
-		trackers[i]->init(frame, bboxes[i]);
+		algorithms.push_back(legacy::TrackerCSRT::create());
+		balls.push_back(bboxes[i].asRect());
 	}
+
+	trackers.add(algorithms,frame,balls);
 
 	// init minimap
 	MiniMap map;
@@ -93,7 +105,8 @@ int main(int argc, char** argv) {
 	while (video.read(frame))
 	{
 		bboxes = newBBoxes;
-		trackBalls(frame, newBBoxes, trackers);
+		//trackBalls(frame, newBBoxes, trackers);
+		trackers.update(frame);
 
 		////////////////////////////////////////////
 		//Draw tracking lines here
