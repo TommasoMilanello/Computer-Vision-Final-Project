@@ -93,17 +93,15 @@ int main(int argc, char** argv) {
 	while (video.read(frame))
 	{
 		bboxes = newBBoxes;
-		for (int i = 0; i < bboxes.size(); i++) {
-			newBBoxes[i] = trackBall(frame, newBBoxes[i], trackers[i]);
-		}
+		trackBalls(frame, newBBoxes, trackers);
 
 		////////////////////////////////////////////
 		//Draw tracking lines here
 		///////////////////////////////////////////
-		map.updateMiniMap(newBBoxes); // TODO! see MiniMap.cpp
+		map.updateMiniMap(newBBoxes);
 
 
-		switch (*argv[2])
+		switch (stoi(argv[2]))
 		{
 		case 0:
 			drawBallLocalization(frame, output, vertices, newBBoxes, false);

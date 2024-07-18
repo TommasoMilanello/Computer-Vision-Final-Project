@@ -1,3 +1,6 @@
+#ifndef DISPLAYFUNTIONS_H
+#define DISPLAYFUNCTIONS_H
+
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
@@ -15,3 +18,5 @@ void drawBallLocalization(const cv::Mat& src, cv::Mat& dst, const std::vector<cv
 void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, const MiniMap& map);
 
 //cv::Mat drawResults(cv::Mat& frame, std::vector<BBox> balls, const std::vector<cv::Point>& tableContour);
+
+#endif // DISPLAYFUNCTIONS_H

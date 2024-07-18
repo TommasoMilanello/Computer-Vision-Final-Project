@@ -1,3 +1,6 @@
+#ifndef MINIMAP_H
+#define MINIMAP_H
+
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/calib3d.hpp>
@@ -5,7 +8,7 @@
 
 #include "BBox.h"
 
-const std::string TABLE_SCHEME_PATH = "..//..//map_background.png";
+const std::string TABLE_SCHEME_PATH = "./map_background.png";
 const float RESIZE_RATIO = 0.55;
 const float RESIZE_PADDING = 0.01;
 const int FIXED_RADIUS = 12;
@@ -35,3 +38,5 @@ private:
 	std::vector<cv::Point> ballCenters;
 	std::vector<int> ballCategID;
 };
+
+#endif // MINIMAP_H

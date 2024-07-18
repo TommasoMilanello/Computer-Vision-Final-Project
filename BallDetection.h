@@ -1,3 +1,6 @@
+#ifndef BALLDETECTION_H
+#define BALLDETECTION_H
+
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
@@ -8,3 +11,5 @@ std::vector<std::tuple<cv::Point, int, int>> detectBalls(const cv::Mat& segmente
 cv::Mat extractRoi(const cv::Mat& image, cv::Point center, int radius);
 
 int classifyBall(const cv::Mat& roi);
+
+#endif // BALLDETECTION_H

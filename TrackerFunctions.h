@@ -1,5 +1,10 @@
+#ifndef TRACKERFUNCTIONS_H
+#define TRACKERFUNCTIONS_H
+
 #include <opencv2/tracking.hpp>
 
 #include "Bbox.h"
 
-BBox trackBall(cv::Mat& frame, BBox bbox, cv::Ptr<cv::Tracker> tracker);//we might need std::Ptr
+void trackBalls(cv::Mat& frame, std::vector<BBox>& bBoxes, std::vector<cv::Ptr<cv::Tracker>> trackers);
+
+#endif // TRACKERFUNCTIONS_H

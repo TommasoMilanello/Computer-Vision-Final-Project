@@ -167,8 +167,11 @@ void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point 
 }
 
 void MiniMap::updateMiniMap(const std::vector<BBox> newBboxes) {
-	//TODO disegnare linee
-	//invocare projectOnMap con le nuove BBoxes	
+	for (int i = 0; i < newBboxes.size(); ++i) {
+		cv::line(this->MapImg, this->ballCenters[i], newBboxes[i].getCenter(), cv::Scalar(0, 0, 0));
+	}
+
+	this->projectOnMap(newBboxes);
 }
 
 void MiniMap::projectOnMap(const std::vector<BBox> bboxes) {
