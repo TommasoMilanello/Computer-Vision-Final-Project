@@ -19,6 +19,8 @@ opencv2/highgui.hpp
 -
 opencv2/imgproc.hpp
 -
+iostream
+-
 BBox.h
 /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.h
 

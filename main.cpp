@@ -26,7 +26,7 @@ vector<Mat> multipleImRead(const string& path, const string& pattern, bool asGra
 vector<vector<BBox>> multipleBBoxRead(const string& path, const string& pattern);
 Point computeCenterOfTableShape(vector<Point> vertices);
 Point differenceVector(Point p1, Point p2);
-vector<BBox> convertIntoBBoxes(vector<tuple<Point, int, int>> toBboxes);
+vector<BBox> convertIntoBBoxes(vector<vector<int>> toBboxes);
 
 int main(int argc, char** argv) {
 
@@ -304,16 +304,18 @@ cv::Point differenceVector(cv::Point p1, cv::Point p2) {
 	return cv::Point(diffX, diffY);
 }
 
-std::vector<BBox> convertIntoBBoxes(std::vector<std::tuple<cv::Point, int, int>> toBboxes) {
+std::vector<BBox> convertIntoBBoxes(std::vector<std::vector<int>> toBboxes) {
 	std::vector<BBox> result;
+	int i = 0;
 	for (auto& toBbox : toBboxes) {
 		result.push_back(BBox(
-			std::get<0>(toBbox).x - std::get<1>(toBbox),
-			std::get<0>(toBbox).y - std::get<1>(toBbox),
-			std::get<1>(toBbox) * 2,
-			std::get<1>(toBbox) * 2,
-			std::get<2>(toBbox)
+			toBbox[0] - toBbox[2],
+			toBbox[1] - toBbox[2],
+			toBbox[2] * 2,
+			toBbox[2] * 2,
+			toBbox[3]
 		));
+		//std::cout << "ahahah: " << result[i++].asRect() << std::endl;
 	}
 	return result;
 }

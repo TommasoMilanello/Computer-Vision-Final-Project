@@ -1,6 +1,6 @@
 #include "BallDetection.h"
 
-std::vector<std::tuple<cv::Point, int, int>> detectBalls(const cv::Mat& segmented, const cv::Mat& mask) {
+std::vector<std::vector<int>> detectBalls(const cv::Mat& segmented, const cv::Mat& mask) {
 	cv::Mat gray;
 	cv::cvtColor(segmented, gray, cv::COLOR_BGR2GRAY);
 	cv::GaussianBlur(gray, gray, cv::Size(5, 5), 0);
@@ -8,7 +8,7 @@ std::vector<std::tuple<cv::Point, int, int>> detectBalls(const cv::Mat& segmente
 	std::vector<cv::Vec3f> circles;
 	cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1.2, 10, 30, 20, 5, 13);
 
-	std::vector<std::tuple<cv::Point, int, int>> balls;
+	std::vector<std::vector<int>> balls;
 	if (!circles.empty()) {
 		for (const auto& circle : circles) {
 			cv::Point center(cvRound(circle[0]), cvRound(circle[1]));
@@ -20,7 +20,7 @@ std::vector<std::tuple<cv::Point, int, int>> detectBalls(const cv::Mat& segmente
 			cv::Mat ballRoi = extractRoi(segmented, center, radius);
 			if (!ballRoi.empty()) {
 				int ball_type = classifyBall(ballRoi);
-				balls.emplace_back(center, radius, ball_type);
+				balls.push_back({center.x, center.y, radius, ball_type});
 			}
 		}
 	}
@@ -46,47 +46,58 @@ cv::Mat extractRoi(const cv::Mat& image, cv::Point center, int radius) {
 }
 
 int classifyBall(const cv::Mat& roi) {
+    cv::Mat hsv_roi;
+    cvtColor(roi, hsv_roi, cv::COLOR_BGR2HSV);
+    
+	// Reshape and sort to find the median color
+    cv::Mat reshaped_hsv_roi = hsv_roi.reshape(1, hsv_roi.total());
+    cv::Mat sorted_hsv_roi;
+    cv::sort(reshaped_hsv_roi, sorted_hsv_roi, cv::SORT_EVERY_COLUMN + cv::SORT_ASCENDING);
+    cv::Scalar median_color;
+    median_color[0] = sorted_hsv_roi.at<cv::Vec3b>(sorted_hsv_roi.rows / 2, 0)[0];
+    median_color[1] = sorted_hsv_roi.at<cv::Vec3b>(sorted_hsv_roi.rows / 2, 1)[1];
+    median_color[2] = sorted_hsv_roi.at<cv::Vec3b>(sorted_hsv_roi.rows / 2, 2)[2];
 
-	cv::Mat hsv_roi, gray;
-	cv::cvtColor(roi, hsv_roi, cv::COLOR_BGR2HSV);
+    cv::Scalar white_lower(0, 0, 168);
+    cv::Scalar white_upper(172, 111, 255);
+    cv::Scalar black_lower(0, 0, 0);
+    cv::Scalar black_upper(180, 255, 50);
 
-	// Compute the median color in HSV
-	std::vector<cv::Mat> hsv_planes(3);
-	cv::split(hsv_roi, hsv_planes);
-	cv::Mat median_color;
-	cv::medianBlur(hsv_planes[0], median_color, 3); // Use a kernel size of 3 for median blur
-	cv::Scalar median = cv::mean(median_color);
+    bool is_white = (median_color[0] >= white_lower[0] && median_color[0] <= white_upper[0]) &&
+                    (median_color[1] >= white_lower[1] && median_color[1] <= white_upper[1]) &&
+                    (median_color[2] >= white_lower[2] && median_color[2] <= white_upper[2]);
 
-	cv::Scalar white_lower(20, 0, 153); // 0, 0, 168
-	cv::Scalar white_upper(90, 128, 255); // 172, 111, 255
+    bool is_black = (median_color[0] >= black_lower[0] && median_color[0] <= black_upper[0]) &&
+                    (median_color[1] >= black_lower[1] && median_color[1] <= black_upper[1]) &&
+                    (median_color[2] >= black_lower[2] && median_color[2] <= black_upper[2]);
 
-	cv::Scalar black_lower(95, 224, 0); // 0, 0, 0
-	cv::Scalar black_upper(125, 255, 38); // 180, 255, 50
+    if (is_white) {
+        return 1;  // Cue Ball: white
+    }
 
-	// Check if the median color falls within the white or black range
-	if (cv::norm(median - white_lower) <= 255 && cv::norm(median - white_upper) <= 255) {
-		return 1; // white
-	}
+    if (is_black) {
+        return 2;  // 8-Ball: black
+    }
 
-	if (cv::norm(median - black_lower) <= 255 && cv::norm(median - black_upper) <= 255) {
-		return 2; // black
-	}
+    cv::Mat gray_roi;
+    cvtColor(roi, gray_roi, cv::COLOR_BGR2GRAY);
+	gray_roi.convertTo(gray_roi, CV_32F);
+    cv::Mat f_transform;
+    dft(gray_roi, f_transform, cv::DFT_COMPLEX_OUTPUT);
 
-	// Convert to grayscale and apply threshold
-	cv::cvtColor(roi, gray, cv::COLOR_BGR2GRAY);
-	cv::Mat thresholded;
-	cv::threshold(gray, thresholded, 130, 255, cv::THRESH_BINARY);
+    cv::Mat planes[] = {cv::Mat::zeros(f_transform.size(), CV_32F), cv::Mat::zeros(f_transform.size(), CV_32F)};
+    split(f_transform, planes);
+    magnitude(planes[0], planes[1], planes[0]);
 
-	int total_pixels = thresholded.total();
-	int white_pixels = cv::countNonZero(thresholded);
+    cv::Mat magnitude_spectrum = planes[0];
+    magnitude_spectrum += cv::Scalar::all(1);
+    log(magnitude_spectrum, magnitude_spectrum);
 
-	double white_proportion = static_cast<double>(white_pixels) / total_pixels;
-	double proportion_threshold = 0.2;
+    cv::Scalar mean_frequency = mean(magnitude_spectrum);
 
-	if (white_proportion > proportion_threshold) {
-		return 4; // stripped
-	}
-	else {
-		return 3; // solid
-	}
+    if (mean_frequency[0] > 115) {
+        return 3;  // Solid Balls: red
+    } else {
+        return 4;  // Striped Balls: green
+    }
 }
