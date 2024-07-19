@@ -3,17 +3,20 @@
 void drawSegmentation(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Point> vertices, const std::vector<BBox> bboxes) {
 	dst = src.clone();
 
-	cv::drawContours(dst, std::vector<std::vector<cv::Point>>{vertices}, -1, BBox::OBJECT_COLORS_BASED_ON_CATEG_ID[0], cv::FILLED);
+	cv::drawContours(dst, std::vector<std::vector<cv::Point>>{vertices}, -1, BBox::OBJECT_COLORS_BASED_ON_CATEG_ID[PLAYING_FIELD_CATEG], cv::FILLED);
 
 	for (auto& bbox : bboxes) {
 		cv::circle(dst, bbox.getCenter(), bbox.getMaxRadius(), BBox::OBJECT_COLORS_BASED_ON_CATEG_ID[bbox.getCategID()], cv::FILLED);
 	}
 }
 
-void drawSegmentationMask(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Point> vertices, const std::vector<BBox> bboxes) {
+void drawSegmentationMask(const cv::Mat& src, cv::Mat& dst, const cv::Mat& segmented, const std::vector<BBox> bboxes) {
 	dst = cv::Mat::zeros(src.rows, src.cols, CV_8U);
 
-	cv::drawContours(dst, std::vector<std::vector<cv::Point>>{vertices}, -1, PLAYING_FIELD_CATEG, cv::FILLED);
+	//cv::drawContours(dst, std::vector<std::vector<cv::Point>>{vertices}, -1, PLAYING_FIELD_CATEG, cv::FILLED);
+	std::vector<std::vector<cv::Point>> contours;
+	cv::findContours(segmented, contours, cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
+	cv::drawContours(dst, contours, -1, PLAYING_FIELD_CATEG, cv::FILLED);
 
 	for (auto& bbox : bboxes) {
 		cv::circle(dst, bbox.getCenter(), bbox.getMaxRadius(), bbox.getCategID(), cv::FILLED);

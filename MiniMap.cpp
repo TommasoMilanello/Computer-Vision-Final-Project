@@ -151,7 +151,7 @@ void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::
 }
 
 void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes, bool approxRadius) {
-	this->computeHomography(corners, center);
+	this->computeHomography(corners, center, 0);
 
 	this->MapImg = this->Background.clone();
 	this->radius = FIXED_RADIUS;

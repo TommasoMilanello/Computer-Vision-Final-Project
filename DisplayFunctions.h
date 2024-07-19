@@ -11,7 +11,7 @@ const int PLAYING_FIELD_CATEG = 5;
 
 void drawSegmentation(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Point> vertices, const std::vector<BBox> bboxes);
 
-void drawSegmentationMask(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Point> vertices, const std::vector<BBox> bboxes);
+void drawSegmentationMask(const cv::Mat& src, cv::Mat& dst, const cv::Mat& segmeted, const std::vector<BBox> bboxes);
 
 void drawBallLocalization(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Point> vertices, const std::vector<BBox> bboxes, bool asBboxes = true);
 

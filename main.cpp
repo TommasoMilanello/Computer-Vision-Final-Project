@@ -16,7 +16,10 @@
 using namespace std;
 using namespace cv;
 
-vector<Mat> multipleImRead(const string& path, const string& pattern);
+const string GROUND_TRUTH_EXTENSION_SEGMENTATION = "*.png";
+const string GROUND_TRUTH_EXTENSION_CLASSIFICATION = "*.txt";
+
+vector<Mat> multipleImRead(const string& path, const string& pattern, bool asGray);
 vector<vector<BBox>> multipleBBoxRead(const string& path, const string& pattern);
 Point computeCenterOfTableShape(vector<Point> vertices);
 Point differenceVector(Point p1, Point p2);
@@ -25,7 +28,7 @@ vector<BBox> convertIntoBBoxes(vector<tuple<Point, int, int>> toBboxes);
 int main(int argc, char** argv) {
 
 	if (argc <= 2) {
-		cerr << "Usage: " << argv[0] << " video_path output_type[0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']";
+		cerr << "Usage: " << argv[0] << " video_path output_type [ground_truth_path]\nutput_type can be [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']";
 		return 0;
 	}
 
@@ -64,8 +67,8 @@ int main(int argc, char** argv) {
 	getRectFromLines(lines, vertices, 0);
 
 	// fill the mask for the table
-	Mat mask;
-	cv::drawContours(mask, std::vector<std::vector<cv::Point>>{vertices}, -1, 255, cv::FILLED);
+	Mat mask = Mat::zeros(frame.rows, frame.cols, CV_8U);
+	cv::drawContours(mask, std::vector<std::vector<cv::Point>>{vertices}, 0, 255, cv::FILLED);
 
 	// ball localization and classification
 	Mat roughSegm;
@@ -100,9 +103,45 @@ int main(int argc, char** argv) {
 	cv::Point center = computeCenterOfTableShape(vertices);
 	map.initMiniMap(vertices, center, bboxes);
 
+	// first printing
 	Mat output;
-	imshow("Video", frame);
+	Mat segmMask;
+	vector<float> meanIoUValues;
+	vector<Mat> groundTruths;
+	switch (stoi(argv[2]))
+		{
+		case 0:
+			drawBallLocalization(frame, output, vertices, newBBoxes, false);
+			break;
+		case 1:
+			drawBallLocalization(frame, output, vertices, newBBoxes, true);
+			break;
+		case 2:
+			drawSegmentation(frame, output, vertices, newBBoxes);
 
+			if (argc == 4) {
+				groundTruths = multipleImRead(argv[3], GROUND_TRUTH_EXTENSION_SEGMENTATION, true);
+
+				drawSegmentationMask(frame, segmMask, segmented, newBBoxes);
+				
+				if (groundTruths.empty()) {
+					cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
+				} 
+				else {
+					meanIoUValues.push_back(meanIoU(segmMask, groundTruths[0]));
+				}
+			}
+			break;
+		case 3:
+			drawFrameWithMiniMap(frame, output, newBBoxes, map);
+			break;
+		default:
+			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']" << std::endl;
+			break;
+		}
+
+
+	Mat prevFrame;
 	while (video.read(frame))
 	{
 		bboxes = newBBoxes;
@@ -140,6 +179,7 @@ int main(int argc, char** argv) {
 		}
 
 		imshow("Video", output);
+		prevFrame = frame.clone();
 		// Exit if ESC pressed.
 		int k = waitKey(1);
 		if (k == 27)
@@ -148,10 +188,27 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	if (argc == 4) {
+		if (stoi(argv[2]) == 2) {
+			drawSegmentationMask(prevFrame, segmMask, segmented, newBBoxes);
+
+			if (groundTruths.empty()) {
+				cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
+			} 
+			else {
+				meanIoUValues.push_back(meanIoU(segmMask, groundTruths[1]));
+			}
+		}
+
+		cout << "First frame/Last frame eval: " << meanIoUValues[0] << "/" << meanIoUValues[1] << endl;
+	}
+
+	waitKey(0);
+
 	return 0;
 }
 
-std::vector<cv::Mat> multipleImRead(const std::string& path, const std::string& pattern)
+std::vector<cv::Mat> multipleImRead(const std::string& path, const std::string& pattern, bool asGray)
 {
 	std::vector<cv::Mat> images;
 	std::vector<cv::String> filenames;
@@ -167,7 +224,11 @@ std::vector<cv::Mat> multipleImRead(const std::string& path, const std::string& 
 	{
 		for (int i = 0; i < filenames.size(); i++)
 		{
-			images.push_back(cv::imread(filenames[i]));
+			if (asGray) {
+				images.push_back(cv::imread(filenames[i], cv::IMREAD_GRAYSCALE));
+			} else {
+				images.push_back(cv::imread(filenames[i]));
+			}			
 		}
 	}
 	return images;
