@@ -57,11 +57,11 @@ int classifyBall(const cv::Mat& roi) {
 	cv::medianBlur(hsv_planes[0], median_color, 3); // Use a kernel size of 3 for median blur
 	cv::Scalar median = cv::mean(median_color);
 
-	cv::Scalar white_lower(0, 0, 168);
-	cv::Scalar white_upper(172, 111, 255);
+	cv::Scalar white_lower(20, 0, 153); // 0, 0, 168
+	cv::Scalar white_upper(90, 128, 255); // 172, 111, 255
 
-	cv::Scalar black_lower(0, 0, 0);
-	cv::Scalar black_upper(180, 255, 50);
+	cv::Scalar black_lower(95, 224, 0); // 0, 0, 0
+	cv::Scalar black_upper(125, 255, 38); // 180, 255, 50
 
 	// Check if the median color falls within the white or black range
 	if (cv::norm(median - white_lower) <= 255 && cv::norm(median - white_upper) <= 255) {

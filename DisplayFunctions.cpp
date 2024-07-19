@@ -15,7 +15,7 @@ void drawSegmentationMask(const cv::Mat& src, cv::Mat& dst, const cv::Mat& segme
 
 	//cv::drawContours(dst, std::vector<std::vector<cv::Point>>{vertices}, -1, PLAYING_FIELD_CATEG, cv::FILLED);
 	std::vector<std::vector<cv::Point>> contours;
-	cv::findContours(segmented, contours, cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
+	cv::findContours(segmented, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
 	cv::drawContours(dst, contours, -1, PLAYING_FIELD_CATEG, cv::FILLED);
 
 	for (auto& bbox : bboxes) {

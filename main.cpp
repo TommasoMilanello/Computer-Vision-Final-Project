@@ -13,11 +13,14 @@
 #include "SegmentationEvaluation.h"
 #include "TableDetection.h"
 
+#include "ReportUtilitiesFunctions.h"
+
 using namespace std;
 using namespace cv;
 
 const string GROUND_TRUTH_EXTENSION_SEGMENTATION = "*.png";
 const string GROUND_TRUTH_EXTENSION_CLASSIFICATION = "*.txt";
+const string REPORT_RESULTS_PATH = "..//reports//report.txt";
 
 vector<Mat> multipleImRead(const string& path, const string& pattern, bool asGray);
 vector<vector<BBox>> multipleBBoxRead(const string& path, const string& pattern);
@@ -28,7 +31,7 @@ vector<BBox> convertIntoBBoxes(vector<tuple<Point, int, int>> toBboxes);
 int main(int argc, char** argv) {
 
 	if (argc <= 2) {
-		cerr << "Usage: " << argv[0] << " video_path output_type [ground_truth_path]\nutput_type can be [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']";
+		cerr << "Usage: " << argv[0] << " video_path output_type [ground_truth_path]\nutput_type can be [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map', 4: 'Metrics']";
 		return 0;
 	}
 
@@ -108,6 +111,7 @@ int main(int argc, char** argv) {
 	Mat segmMask;
 	vector<float> meanIoUValues;
 	vector<Mat> groundTruths;
+	stringstream resultFormatted;
 	switch (stoi(argv[2]))
 		{
 		case 0:
@@ -118,28 +122,34 @@ int main(int argc, char** argv) {
 			break;
 		case 2:
 			drawSegmentation(frame, output, vertices, newBBoxes);
+			break;
+		case 3:
+			drawFrameWithMiniMap(frame, output, newBBoxes, map);
+			break;
+		case 4:
+			drawSegmentation(frame, output, vertices, newBBoxes);
+			drawSegmentationMask(frame, segmMask, segmented, newBBoxes);
 
 			if (argc == 4) {
 				groundTruths = multipleImRead(argv[3], GROUND_TRUTH_EXTENSION_SEGMENTATION, true);
-
-				drawSegmentationMask(frame, segmMask, segmented, newBBoxes);
 				
 				if (groundTruths.empty()) {
 					cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
 				} 
 				else {
-					meanIoUValues.push_back(meanIoU(segmMask, groundTruths[0]));
+					meanIoUValues.push_back(meanIoU(segmMask, groundTruths[0], resultFormatted, 0));
 				}
 			}
-			break;
-		case 3:
-			drawFrameWithMiniMap(frame, output, newBBoxes, map);
+			else {
+				cerr << "No path provided for the ground truth" << endl;
+			}
 			break;
 		default:
-			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']" << std::endl;
+			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map', 4: 'Metrics']" << std::endl;
 			break;
 		}
-
+	
+	imshow("Video", output);
 
 	Mat prevFrame;
 	while (video.read(frame))
@@ -173,6 +183,9 @@ int main(int argc, char** argv) {
 		case 3:
 			drawFrameWithMiniMap(frame, output, newBBoxes, map);
 			break;
+		case 4:
+			drawSegmentation(frame, output, vertices, newBBoxes);
+			break;
 		default:
 			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']" << std::endl;
 			break;
@@ -188,22 +201,20 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	if (argc == 4) {
-		if (stoi(argv[2]) == 2) {
-			drawSegmentationMask(prevFrame, segmMask, segmented, newBBoxes);
+	if (stoi(argv[2]) == 4) {
+		drawSegmentationMask(prevFrame, segmMask, segmented, newBBoxes);
 
-			if (groundTruths.empty()) {
-				cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
-			} 
-			else {
-				meanIoUValues.push_back(meanIoU(segmMask, groundTruths[1]));
-			}
+		if (groundTruths.empty()) {
+			cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
+		} 
+		else {
+			meanIoUValues.push_back(meanIoU(segmMask, groundTruths[1], resultFormatted, 1));
 		}
 
 		cout << "First frame/Last frame eval: " << meanIoUValues[0] << "/" << meanIoUValues[1] << endl;
-	}
 
-	waitKey(0);
+		finalizeAndWriteToFile(REPORT_RESULTS_PATH, resultFormatted);
+	}
 
 	return 0;
 }

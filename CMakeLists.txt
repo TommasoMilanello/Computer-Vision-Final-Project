@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 find_package(OpenCV REQUIRED)
 
 # Add the executable
-add_executable(CV_Final_Project main.cpp BallDetection.cpp BBox.cpp DisplayFunctions.cpp MiniMap.cpp SegmentationEvaluation.cpp TableDetection.cpp) # Add other source files if needed
+add_executable(CV_Final_Project main.cpp BallDetection.cpp BBox.cpp DisplayFunctions.cpp MiniMap.cpp SegmentationEvaluation.cpp TableDetection.cpp SegmentationEvaluation.cpp ReportUtilitiesFunctions.cpp) # Add other source files if needed
 
 # Include directories
 target_include_directories(CV_Final_Project PRIVATE ${OpenCV_INCLUDE_DIRS})
