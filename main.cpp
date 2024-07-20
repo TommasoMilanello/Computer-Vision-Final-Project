@@ -15,25 +15,25 @@
 #include "TableDetection.h"
 #include "MainUtilities.h"
 
-#include "ReportUtilitiesFunctions.h"
+#include "ReportUtilitiesFunctions.h"	//to remove once testing is done
 
 using namespace std;
 using namespace cv;
 
-const string GROUND_TRUTH_EXTENSION_SEGMENTATION = "*.png";
+const string GROUND_TRUTH_EXTENSION_SEGMENTATION = "*.png";	
 const string GROUND_TRUTH_EXTENSION_CLASSIFICATION = "*.txt";
-const string REPORT_RESULTS_PATH = "..//reports//report.txt";
+const string REPORT_RESULTS_PATH = "..//reports//report.txt";	//to remove once testing is done 
 
 
 int main(int argc, char** argv) {
 
 	if (argc <= 2) {
-		cerr << "Usage: " << argv[0] << " video_path output_type [ground_truth_path]\nutput_type can be [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map', 4: 'Metrics']";
+		cerr << "Usage: " << argv[0] << " video_path output_type [ground_truth_path]\nOutput_type can be: [0: 'Ball Localization (circles)',\n 1: 'Ball Localization (bboxes)',\n 2: 'Segmentation',\n 3: 'Video with top-view Map',\n 4: 'mIoU',\n 5:'mAP']";
 		return 0;
 	}
 
 	///////////////////////////////////////////
-	//We should do a flag in argv[2] that decides which output the program shows
+	//START THE VIDEO READING
 	///////////////////////////////////////////
 
 	// Read video
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 	}
 
 	/////////////////////////////////////
-	//FIND BBOXES HERE
+	//SEGMENTATION + LOCALIZATION + CLASSIFICATION
 	/////////////////////////////////////
 
 	// get vertices of the table
@@ -76,9 +76,10 @@ int main(int argc, char** argv) {
 	std::vector<BBox> bboxes = convertIntoBBoxes(detectBalls(roughSegm, mask));
 
 	//////////////////////////////////////
-	//INITIALIZE ALL THE TRACKERS
+	//INITIALIZIONS
 	//////////////////////////////////////
 
+	// initialize multitracker
 	std::vector<BBox> newBBoxes = bboxes;
 
 	legacy::MultiTracker trackers;
@@ -92,7 +93,7 @@ int main(int argc, char** argv) {
 
 	trackers.add(algorithms,frame,balls);
 
-	// init minimap
+	// initialize minimap
 	MiniMap map;
 	cv::Point center = computeCenterOfTableShape(vertices);
 	map.initMiniMap(vertices, center, bboxes);
@@ -103,7 +104,7 @@ int main(int argc, char** argv) {
 	vector<float> meanIoUValues;
 	vector<float> mAPValues;
 	vector<Mat> groundTruthMasks;
-	stringstream resultFormatted;
+	stringstream resultFormatted;		//remove after 
 	vector<vector<BBox>> groundTruthBboxes;
 
 	switch (stoi(argv[2]))

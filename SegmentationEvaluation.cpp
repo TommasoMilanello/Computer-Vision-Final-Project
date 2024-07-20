@@ -32,7 +32,6 @@ float meanIoU(const cv::Mat& segmMask, const cv::Mat& groundTruth, std::stringst
 	return result;
 }
 
-
 float mAP(std::vector<BBox> bBoxes, std::vector<BBox> groundTruth) {
 	int currentClass;
 	float  sumOfPrecisions, sumOfAveragePrecisions, precision, recall, totalGroundTruth;
