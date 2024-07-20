@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.cpp" "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles/CV_Final_Project.dir/BBox.cpp.o"
+  "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp" "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o"
   "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallDetection.cpp" "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o"
   "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.cpp" "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o"
   "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.cpp" "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o"

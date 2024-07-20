@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/CV_Final_Project.dir/BBox.cpp.o"
+  "CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o"
   "CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o"
   "CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o"
   "CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o"

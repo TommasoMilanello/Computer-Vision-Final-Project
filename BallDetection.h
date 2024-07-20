@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "BBox.h"
+#include "BallClassification.h"
 
 std::vector<std::vector<int>> detectBalls(const cv::Mat& segmented, const cv::Mat& mask);
 

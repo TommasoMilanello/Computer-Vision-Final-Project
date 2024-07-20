@@ -38,5 +38,10 @@
   "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
   "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp",
   "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp"
+},
+{
+  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp",
+  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp"
 }
 ]

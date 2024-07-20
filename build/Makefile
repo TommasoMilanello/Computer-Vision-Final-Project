@@ -169,6 +169,33 @@ BBox.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/BBox.cpp.s
 .PHONY : BBox.cpp.s
 
+BallClassification.o: BallClassification.cpp.o
+
+.PHONY : BallClassification.o
+
+# target to build an object file
+BallClassification.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o
+.PHONY : BallClassification.cpp.o
+
+BallClassification.i: BallClassification.cpp.i
+
+.PHONY : BallClassification.i
+
+# target to preprocess a source file
+BallClassification.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.i
+.PHONY : BallClassification.cpp.i
+
+BallClassification.s: BallClassification.cpp.s
+
+.PHONY : BallClassification.s
+
+# target to generate assembly for a file
+BallClassification.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.s
+.PHONY : BallClassification.cpp.s
+
 BallDetection.o: BallDetection.cpp.o
 
 .PHONY : BallDetection.o
@@ -370,6 +397,9 @@ help:
 	@echo "... BBox.o"
 	@echo "... BBox.i"
 	@echo "... BBox.s"
+	@echo "... BallClassification.o"
+	@echo "... BallClassification.i"
+	@echo "... BallClassification.s"
 	@echo "... BallDetection.o"
 	@echo "... BallDetection.i"
 	@echo "... BallDetection.s"
