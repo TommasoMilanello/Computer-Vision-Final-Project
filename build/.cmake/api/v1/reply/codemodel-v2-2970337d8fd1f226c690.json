@@ -18,7 +18,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "",
 			"projects" : 
 			[
 				{
@@ -38,7 +38,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "CV_Final_Project::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CV_Final_Project-Debug-d168f72c316a9ab6ac5f.json",
+					"jsonFile" : "target-CV_Final_Project-652b0cf59691e89cb1b9.json",
 					"name" : "CV_Final_Project",
 					"projectIndex" : 0
 				}
@@ -48,8 +48,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
-		"source" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project"
+		"build" : "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
+		"source" : "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project"
 	},
 	"version" : 
 	{

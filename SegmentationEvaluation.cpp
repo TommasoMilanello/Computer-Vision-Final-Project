@@ -3,7 +3,7 @@
 #include "SegmentationEvaluation.h"
 
 
-float meanIoU(const cv::Mat& segmMask, const cv::Mat& groundTruth, std::stringstream& resultsFormatted, int frameNumber) {
+float meanIoU(const cv::Mat& segmMask, const cv::Mat& groundTruth) {
 	cv::Mat binaryPrediction, binaryGroundTruth, intersMat, unionMat;
 	std::vector<float> partials(6);
 	float result = 0;
@@ -27,8 +27,6 @@ float meanIoU(const cv::Mat& segmMask, const cv::Mat& groundTruth, std::stringst
 		//std::cout << "IoU on class " << i << ": " << partial << std::endl;
 	}
 	result /= NUM_OF_CLASSES;
-	partials.push_back(result);
-	writeFrameResults(resultsFormatted, frameNumber, partials);
 	return result;
 }
 

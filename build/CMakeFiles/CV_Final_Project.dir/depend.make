@@ -250,7 +250,6 @@ CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o: ../ReportUtiliti
 CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o: ../ReportUtilitiesFunctions.h
 
 CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o: ../BBox.h
-CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o: ../ReportUtilitiesFunctions.h
 CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o: ../SegmentationEvaluation.cpp
 CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o: ../SegmentationEvaluation.h
 CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o: /usr/local/include/opencv4/opencv2/core.hpp
@@ -333,7 +332,6 @@ CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../BallDetection.h
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../DisplayFunctions.h
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../MainUtilities.h
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../MiniMap.h
-CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../ReportUtilitiesFunctions.h
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../SegmentationEvaluation.h
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../TableDetection.h
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../main.cpp

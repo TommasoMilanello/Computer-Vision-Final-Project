@@ -15,14 +15,11 @@
 #include "TableDetection.h"
 #include "MainUtilities.h"
 
-#include "ReportUtilitiesFunctions.h"	//to remove once testing is done
-
 using namespace std;
 using namespace cv;
 
 const string GROUND_TRUTH_EXTENSION_SEGMENTATION = "*.png";	
 const string GROUND_TRUTH_EXTENSION_CLASSIFICATION = "*.txt";
-const string REPORT_RESULTS_PATH = "..//reports//report.txt";	//to remove once testing is done 
 
 
 int main(int argc, char** argv) {
@@ -80,8 +77,6 @@ int main(int argc, char** argv) {
 	//////////////////////////////////////
 
 	// initialize multitracker
-	std::vector<BBox> newBBoxes = bboxes;
-
 	legacy::MultiTracker trackers;
 	vector<Rect2d> balls;
 	vector<Ptr<legacy::Tracker> > algorithms;
@@ -104,26 +99,25 @@ int main(int argc, char** argv) {
 	vector<float> meanIoUValues;
 	vector<float> mAPValues;
 	vector<Mat> groundTruthMasks;
-	stringstream resultFormatted;		//remove after 
 	vector<vector<BBox>> groundTruthBboxes;
 
 	switch (stoi(argv[2]))
 		{
 		case 0:
-			drawBallLocalization(frame, output, vertices, newBBoxes, false);
+			drawBallLocalization(frame, output, vertices, bboxes, false);
 			break;
 		case 1:
-			drawBallLocalization(frame, output, vertices, newBBoxes, true);
+			drawBallLocalization(frame, output, vertices, bboxes, true);
 			break;
 		case 2:
-			drawSegmentation(frame, output, vertices, newBBoxes);
+			drawSegmentation(frame, output, vertices, bboxes);
 			break;
 		case 3:
-			drawFrameWithMiniMap(frame, output, newBBoxes, map);
+			drawFrameWithMiniMap(frame, output, bboxes, map);
 			break;
 		case 4:
-			drawSegmentation(frame, output, vertices, newBBoxes);
-			drawSegmentationMask(frame, segmMask, segmented, newBBoxes);
+			drawSegmentation(frame, output, vertices, bboxes);
+			drawSegmentationMask(frame, segmMask, segmented, bboxes);
 
 			if (argc == 4) {
 				groundTruthMasks = multipleImRead(argv[3], GROUND_TRUTH_EXTENSION_SEGMENTATION, true);
@@ -132,7 +126,7 @@ int main(int argc, char** argv) {
 					cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
 				} 
 				else {
-					meanIoUValues.push_back(meanIoU(segmMask, groundTruthMasks[0], resultFormatted, 0));
+					meanIoUValues.push_back(meanIoU(segmMask, groundTruthMasks[0]));
 				}
 			}
 			else {
@@ -140,7 +134,7 @@ int main(int argc, char** argv) {
 			}
 			break;
 		case 5:
-			drawBallLocalization(frame, output, vertices, newBBoxes, true);
+			drawBallLocalization(frame, output, vertices, bboxes, true);
 			if (argc == 4) {
 				groundTruthBboxes = multipleBBoxRead(argv[3], GROUND_TRUTH_EXTENSION_CLASSIFICATION);
 				if (groundTruthBboxes.empty()) {
@@ -162,40 +156,38 @@ int main(int argc, char** argv) {
 	Mat prevFrame;
 	while (video.read(frame))
 	{
-		bboxes = newBBoxes;
-		//trackBalls(frame, newBBoxes, trackers);
 		trackers.update(frame);
 		
 		for (int i = 0; i < trackers.getObjects().size(); ++i) {
 			Rect box = trackers.getObjects()[i];
-			newBBoxes[i] = BBox(box.x, box.y, box.width, box.height, bboxes[i].getCategID());
+			bboxes[i] = BBox(box.x, box.y, box.width, box.height, bboxes[i].getCategID());
 		}
 
 		////////////////////////////////////////////
 		//Draw tracking lines here
 		///////////////////////////////////////////
-		map.updateMiniMap(newBBoxes);
+		map.updateMiniMap(bboxes);
 
 
 		switch (stoi(argv[2]))
 		{
 		case 0:
-			drawBallLocalization(frame, output, vertices, newBBoxes, false);
+			drawBallLocalization(frame, output, vertices, bboxes, false);
 			break;
 		case 1:
-			drawBallLocalization(frame, output, vertices, newBBoxes, true);
+			drawBallLocalization(frame, output, vertices, bboxes, true);
 			break;
 		case 2:
-			drawSegmentation(frame, output, vertices, newBBoxes);
+			drawSegmentation(frame, output, vertices, bboxes);
 			break;
 		case 3:
-			drawFrameWithMiniMap(frame, output, newBBoxes, map);
+			drawFrameWithMiniMap(frame, output, bboxes, map);
 			break;
 		case 4:
-			drawSegmentation(frame, output, vertices, newBBoxes);
+			drawSegmentation(frame, output, vertices, bboxes);
 			break;
 		case 5:
-			drawBallLocalization(frame, output, vertices, newBBoxes, true);
+			drawBallLocalization(frame, output, vertices, bboxes, true);
 			break;
 		default:
 			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']" << std::endl;
@@ -213,15 +205,14 @@ int main(int argc, char** argv) {
 	}
 
 	if (stoi(argv[2]) == 4) {
-		drawSegmentationMask(prevFrame, segmMask, segmented, newBBoxes);
+		drawSegmentationMask(prevFrame, segmMask, segmented, bboxes);
 
 		if (groundTruthMasks.empty()) {
 			cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
 		} 
 		else {
-			meanIoUValues.push_back(meanIoU(segmMask, groundTruthMasks[1], resultFormatted, 1));
+			meanIoUValues.push_back(meanIoU(segmMask, groundTruthMasks[1]));
 			cout << "First frame/Last frame eval: " << meanIoUValues[0] << "/" << meanIoUValues[1] << endl;
-			finalizeAndWriteToFile(REPORT_RESULTS_PATH, resultFormatted);
 		}
 	}
 
