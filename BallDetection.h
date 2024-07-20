@@ -1,3 +1,5 @@
+//AUTHOR: Ilyas Issa
+
 #ifndef BALLDETECTION_H
 #define BALLDETECTION_H
 

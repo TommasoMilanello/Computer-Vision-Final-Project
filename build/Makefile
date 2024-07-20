@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project
+CMAKE_SOURCE_DIR = /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build
+CMAKE_BINARY_DIR = /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -249,6 +249,33 @@ DisplayFunctions.s: DisplayFunctions.cpp.s
 DisplayFunctions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.s
 .PHONY : DisplayFunctions.cpp.s
+
+MainUtilities.o: MainUtilities.cpp.o
+
+.PHONY : MainUtilities.o
+
+# target to build an object file
+MainUtilities.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o
+.PHONY : MainUtilities.cpp.o
+
+MainUtilities.i: MainUtilities.cpp.i
+
+.PHONY : MainUtilities.i
+
+# target to preprocess a source file
+MainUtilities.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.i
+.PHONY : MainUtilities.cpp.i
+
+MainUtilities.s: MainUtilities.cpp.s
+
+.PHONY : MainUtilities.s
+
+# target to generate assembly for a file
+MainUtilities.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.s
+.PHONY : MainUtilities.cpp.s
 
 MiniMap.o: MiniMap.cpp.o
 
@@ -406,6 +433,9 @@ help:
 	@echo "... DisplayFunctions.o"
 	@echo "... DisplayFunctions.i"
 	@echo "... DisplayFunctions.s"
+	@echo "... MainUtilities.o"
+	@echo "... MainUtilities.i"
+	@echo "... MainUtilities.s"
 	@echo "... MiniMap.o"
 	@echo "... MiniMap.i"
 	@echo "... MiniMap.s"

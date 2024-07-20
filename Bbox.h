@@ -1,3 +1,5 @@
+//AUTHOR: Matteo Ruta
+
 #ifndef BBOX_H
 #define BBOX_H
 

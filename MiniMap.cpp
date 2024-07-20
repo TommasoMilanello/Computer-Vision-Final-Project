@@ -1,3 +1,5 @@
+//AUTHOR: Matteo Ruta
+
 #include "MiniMap.h"
 
 float euclideanDistance(cv::Point p1, cv::Point p2) {

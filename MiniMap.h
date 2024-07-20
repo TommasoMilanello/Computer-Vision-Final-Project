@@ -1,3 +1,5 @@
+//AUTHOR: Matteo Ruta
+
 #ifndef MINIMAP_H
 #define MINIMAP_H
 
@@ -11,7 +13,7 @@
 const std::string TABLE_SCHEME_PATH = "./map_background.png";
 const float RESIZE_RATIO = 0.55;
 const float RESIZE_PADDING = 0.01;
-const int FIXED_RADIUS = 6;
+const int FIXED_RADIUS = 7;
 const std::vector<cv::Point2f> MAIN_POINTS_WITH_IMAGE = {
 	cv::Point(56, 48),
 	cv::Point(634, 48),

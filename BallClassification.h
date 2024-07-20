@@ -1,3 +1,5 @@
+//AUTHOR: Ilyas Issa
+
 #ifndef BALLCLASSIFICATION_H
 #define BALLCLASSIFICATION_H
 

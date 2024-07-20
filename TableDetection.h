@@ -1,3 +1,5 @@
+//AUTHOR: Matteo Ruta
+
 #ifndef TABLEDETECTION_H
 #define TABLEDETECTION_H
 

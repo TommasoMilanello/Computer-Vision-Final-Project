@@ -1,3 +1,5 @@
+//AUTHOR: Ilyas Issa
+
 #include "BallDetection.h"
 
 std::vector<std::vector<int>> detectBalls(const cv::Mat& segmented, const cv::Mat& mask) {
@@ -8,9 +10,9 @@ std::vector<std::vector<int>> detectBalls(const cv::Mat& segmented, const cv::Ma
 	std::vector<cv::Vec3f> circles;
 	cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1.2, 10, 30, 20, 5, 13);
 
-    std::vector<cv::Point> centerVector;
-    std::vector<int> radiusVector;
-	// std::vector<std::vector<int>> balls;
+    std::vector<cv::Point> centerVector;    //MATTEO
+    std::vector<int> radiusVector;          //MATTEO
+	// std::vector<std::vector<int>> balls; //ILYAS
 	if (!circles.empty()) {
 		for (const auto& circle : circles) {
 			cv::Point center(cvRound(circle[0]), cvRound(circle[1]));
@@ -20,17 +22,17 @@ std::vector<std::vector<int>> detectBalls(const cv::Mat& segmented, const cv::Ma
 				2 * static_cast<int>(factor * radius), 2 * static_cast<int>(factor * radius));
 			roi_rect &= cv::Rect(0, 0, segmented.cols, segmented.rows);
 
-            centerVector.push_back(center);
-            radiusVector.push_back(radius);
-			// cv::Mat ballRoi = extractRoi(segmented, center, radius);
-			// if (!ballRoi.empty()) {
-			// 	int ball_type = classifyBall(ballRoi);
-			// 	balls.push_back({center.x, center.y, radius, ball_type});
-			// }
+            centerVector.push_back(center); //MATTEO
+            radiusVector.push_back(radius); //MATTEO
+			// cv::Mat ballRoi = extractRoi(segmented, center, radius);     //ILYAS
+			// if (!ballRoi.empty()) {                                      //ILYAS
+			// 	int ball_type = classifyBall(ballRoi);                      //ILYAS
+			// 	balls.push_back({center.x, center.y, radius, ball_type});   //ILYAS
+			// }                                                            //ILYAS
 		}
 	}
-	// return balls;
-    return classifyBallAlt(segmented, centerVector, radiusVector);
+	// return balls;    //ILYAS
+    return classifyBallAlt(segmented, centerVector, radiusVector);  //MATTEO
 }
 
 cv::Mat extractRoi(const cv::Mat& image, cv::Point center, int radius) {

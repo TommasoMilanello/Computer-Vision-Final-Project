@@ -1,10 +1,11 @@
+//AUTHOR: Tommaso Milanello
+
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/tracking.hpp>
 #include <opencv2/tracking/tracking_legacy.hpp>
-#include <opencv2/core/utils/filesystem.hpp>
 #include <iostream>
-#include <fstream>
+
 
 #include "BallDetection.h"
 #include "BBox.h"
@@ -12,6 +13,7 @@
 #include "MiniMap.h"
 #include "SegmentationEvaluation.h"
 #include "TableDetection.h"
+#include "MainUtilities.h"
 
 #include "ReportUtilitiesFunctions.h"
 
@@ -22,11 +24,6 @@ const string GROUND_TRUTH_EXTENSION_SEGMENTATION = "*.png";
 const string GROUND_TRUTH_EXTENSION_CLASSIFICATION = "*.txt";
 const string REPORT_RESULTS_PATH = "..//reports//report.txt";
 
-vector<Mat> multipleImRead(const string& path, const string& pattern, bool asGray);
-vector<vector<BBox>> multipleBBoxRead(const string& path, const string& pattern);
-Point computeCenterOfTableShape(vector<Point> vertices);
-Point differenceVector(Point p1, Point p2);
-vector<BBox> convertIntoBBoxes(vector<vector<int>> toBboxes);
 
 int main(int argc, char** argv) {
 
@@ -81,12 +78,6 @@ int main(int argc, char** argv) {
 	//////////////////////////////////////
 	//INITIALIZE ALL THE TRACKERS
 	//////////////////////////////////////
-	// std::vector<Ptr<cv::Tracker>> trackers(bboxes.size());
-	// std::vector<BBox> newBBoxes = bboxes;
-	// for (int i = 0; i < bboxes.size(); i++) {
-	// 	trackers[i] = TrackerCSRT::create();
-	// 	trackers[i]->init(frame, bboxes[i]);
-	// }
 
 	std::vector<BBox> newBBoxes = bboxes;
 
@@ -110,8 +101,11 @@ int main(int argc, char** argv) {
 	Mat output;
 	Mat segmMask;
 	vector<float> meanIoUValues;
-	vector<Mat> groundTruths;
+	vector<float> mAPValues;
+	vector<Mat> groundTruthMasks;
 	stringstream resultFormatted;
+	vector<vector<BBox>> groundTruthBboxes;
+
 	switch (stoi(argv[2]))
 		{
 		case 0:
@@ -131,24 +125,37 @@ int main(int argc, char** argv) {
 			drawSegmentationMask(frame, segmMask, segmented, newBBoxes);
 
 			if (argc == 4) {
-				groundTruths = multipleImRead(argv[3], GROUND_TRUTH_EXTENSION_SEGMENTATION, true);
+				groundTruthMasks = multipleImRead(argv[3], GROUND_TRUTH_EXTENSION_SEGMENTATION, true);
 				
-				if (groundTruths.empty()) {
+				if (groundTruthMasks.empty()) {
 					cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
 				} 
 				else {
-					meanIoUValues.push_back(meanIoU(segmMask, groundTruths[0], resultFormatted, 0));
+					meanIoUValues.push_back(meanIoU(segmMask, groundTruthMasks[0], resultFormatted, 0));
 				}
 			}
 			else {
 				cerr << "No path provided for the ground truth" << endl;
 			}
 			break;
+		case 5:
+			drawBallLocalization(frame, output, vertices, newBBoxes, true);
+			if (argc == 4) {
+				groundTruthBboxes = multipleBBoxRead(argv[3], GROUND_TRUTH_EXTENSION_CLASSIFICATION);
+				if (groundTruthBboxes.empty()) {
+					cerr << "No bounding boxes recognized for the segmentation metrics evaluation. The format required is .txt" << endl;
+				} 
+				else {
+					mAPValues.push_back(mAP(bboxes, groundTruthBboxes[0]));
+				}
+			}
+			else {
+				cerr << "No path provided for the ground truth" << endl;
+			}
 		default:
 			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map', 4: 'Metrics']" << std::endl;
 			break;
 		}
-	
 	imshow("Video", output);
 
 	Mat prevFrame;
@@ -186,6 +193,9 @@ int main(int argc, char** argv) {
 		case 4:
 			drawSegmentation(frame, output, vertices, newBBoxes);
 			break;
+		case 5:
+			drawBallLocalization(frame, output, vertices, newBBoxes, true);
+			break;
 		default:
 			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map']" << std::endl;
 			break;
@@ -204,118 +214,26 @@ int main(int argc, char** argv) {
 	if (stoi(argv[2]) == 4) {
 		drawSegmentationMask(prevFrame, segmMask, segmented, newBBoxes);
 
-		if (groundTruths.empty()) {
+		if (groundTruthMasks.empty()) {
 			cerr << "No masks recognized for the segmentation metrics evaluation. The format required is .png" << endl;
 		} 
 		else {
-			meanIoUValues.push_back(meanIoU(segmMask, groundTruths[1], resultFormatted, 1));
+			meanIoUValues.push_back(meanIoU(segmMask, groundTruthMasks[1], resultFormatted, 1));
+			cout << "First frame/Last frame eval: " << meanIoUValues[0] << "/" << meanIoUValues[1] << endl;
+			finalizeAndWriteToFile(REPORT_RESULTS_PATH, resultFormatted);
 		}
-
-		cout << "First frame/Last frame eval: " << meanIoUValues[0] << "/" << meanIoUValues[1] << endl;
-
-		finalizeAndWriteToFile(REPORT_RESULTS_PATH, resultFormatted);
 	}
+
+	if (stoi(argv[2]) == 5) {
+		if (groundTruthBboxes.empty()) {
+				cerr << "No bounding boxes recognized for the segmentation metrics evaluation. The format required is .txt" << endl;
+			} 
+			else {
+				mAPValues.push_back(mAP(bboxes, groundTruthBboxes[1]));
+				cout << "First frame/Last frame eval: " << mAPValues[0] << "/" << mAPValues[1] << endl;
+			}
+	}
+
 
 	return 0;
-}
-
-std::vector<cv::Mat> multipleImRead(const std::string& path, const std::string& pattern, bool asGray)
-{
-	std::vector<cv::Mat> images;
-	std::vector<cv::String> filenames;
-
-	cv::utils::fs::glob(
-		path, pattern, filenames
-	);
-	if (filenames.empty())
-	{
-		std::cout << "Image folder path not valid";
-	}
-	else
-	{
-		for (int i = 0; i < filenames.size(); i++)
-		{
-			if (asGray) {
-				images.push_back(cv::imread(filenames[i], cv::IMREAD_GRAYSCALE));
-			} else {
-				images.push_back(cv::imread(filenames[i]));
-			}			
-		}
-	}
-	return images;
-}
-
-std::vector<std::vector<BBox>> multipleBBoxRead(const std::string& path, const std::string& pattern)
-{
-	std::vector<std::vector<BBox>> result;
-	std::vector<cv::String> filenames;
-
-	cv::utils::fs::glob(
-		path, pattern, filenames
-	);
-	if (filenames.empty())
-	{
-		std::cout << "BBoxes folder path not valid";
-	}
-	else
-	{
-		result.resize(filenames.size());
-
-		for (int i = 0; i < filenames.size(); i++)
-		{
-			std::ifstream file(filenames[i]);
-
-			if (!file) {
-				std::cerr << "Error opening file: " << filenames[i] << std::endl;
-			}
-
-			std::string line;
-			while (std::getline(file, line)) {
-				std::istringstream iss(line);
-				int x, y, width, heigth, categID;
-
-				if (iss >> x >> y >> width >> heigth >> categID) {
-					result[i].emplace_back(x, y, width, heigth, categID);
-				}
-				else {
-					std::cerr << "Error parsing line: " << line << std::endl;
-				}
-			}
-		}
-	}
-
-	return result;
-}
-
-cv::Point computeCenterOfTableShape(std::vector<cv::Point> vertices) {
-	float m1 = (float)(vertices[2].y - vertices[0].y) / (float)(vertices[2].x - vertices[0].x);
-	float m2 = (float)(vertices[3].y - vertices[1].y) / (float)(vertices[3].x - vertices[1].x);
-	float q1 = vertices[0].y - m1 * vertices[0].x;
-	float q2 = vertices[1].y - m2 * vertices[1].x;
-	return cv::Point(
-		cvRound((q2 - q1) / (m1 - m2)),
-		cvRound(((m1 * q2) - (m2 * q1)) / (m1 - m2))
-	);
-}
-
-cv::Point differenceVector(cv::Point p1, cv::Point p2) {
-	int diffX = p2.x - p1.x;
-	int diffY = p2.y - p1.y;
-	return cv::Point(diffX, diffY);
-}
-
-std::vector<BBox> convertIntoBBoxes(std::vector<std::vector<int>> toBboxes) {
-	std::vector<BBox> result;
-	int i = 0;
-	for (auto& toBbox : toBboxes) {
-		result.push_back(BBox(
-			toBbox[0] - toBbox[2],
-			toBbox[1] - toBbox[2],
-			toBbox[2] * 2,
-			toBbox[2] * 2,
-			toBbox[3]
-		));
-		//std::cout << "ahahah: " << result[i++].asRect() << std::endl;
-	}
-	return result;
 }

@@ -1,47 +1,52 @@
 [
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/main.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/main.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/main.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/main.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/main.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/main.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallDetection.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallDetection.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/BBox.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/BBox.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BBox.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BBox.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/DisplayFunctions.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/DisplayFunctions.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MiniMap.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MiniMap.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/SegmentationEvaluation.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/SegmentationEvaluation.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/SegmentationEvaluation.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/SegmentationEvaluation.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/TableDetection.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/TableDetection.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/TableDetection.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/TableDetection.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp"
 },
 {
-  "directory": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp",
-  "file": "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp"
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.cpp"
+},
+{
+  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MainUtilities.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MainUtilities.cpp"
 }
 ]

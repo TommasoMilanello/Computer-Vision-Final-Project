@@ -1,3 +1,5 @@
+//AUTHOR: Ilyas Issa
+
 #include "DisplayFunctions.h"
 
 void drawSegmentation(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Point> vertices, const std::vector<BBox> bboxes) {

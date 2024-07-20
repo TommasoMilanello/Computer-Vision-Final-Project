@@ -1,4 +1,4 @@
-# Install script for directory: /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project
+# Install script for directory: /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

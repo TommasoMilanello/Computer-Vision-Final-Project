@@ -1,3 +1,5 @@
+//AUTHOR: Matteo Ruta
+
 #include "TableDetection.h"
 
 void segmentRegionGrowing(cv::Mat src, cv::Mat& dst, int ksize) {

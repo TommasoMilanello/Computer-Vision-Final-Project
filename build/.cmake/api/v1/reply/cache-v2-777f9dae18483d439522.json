@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build"
+			"value" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -595,7 +595,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project"
+			"value" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1191,7 +1191,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build"
+			"value" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build"
 		},
 		{
 			"name" : "CV_Final_Project_SOURCE_DIR",
@@ -1203,7 +1203,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project"
+			"value" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project"
 		},
 		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_OpenCV",

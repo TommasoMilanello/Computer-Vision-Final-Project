@@ -1,3 +1,5 @@
+//AUTHOR: Matteo Ruta
+
 #include "BBox.h"
 
 const std::vector<cv::Scalar> BBox::OBJECT_COLORS_BASED_ON_CATEG_ID = {
