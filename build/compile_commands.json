@@ -26,18 +26,13 @@
 },
 {
   "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/SegmentationEvaluation.cpp",
-  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/SegmentationEvaluation.cpp"
+  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/EvaluationMetrics.cpp",
+  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/EvaluationMetrics.cpp"
 },
 {
   "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
   "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/TableDetection.cpp",
   "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/TableDetection.cpp"
-},
-{
-  "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
-  "command": "/usr/bin/c++  -isystem /usr/local/include/opencv4 -g -std=gnu++11 -o CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp",
-  "file": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp"
 },
 {
   "directory": "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",

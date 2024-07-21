@@ -11,7 +11,7 @@
 #include "BBox.h"
 #include "DisplayFunctions.h"
 #include "MiniMap.h"
-#include "SegmentationEvaluation.h"
+#include "EvaluationMetrics.h"
 #include "TableDetection.h"
 #include "MainUtilities.h"
 
@@ -147,10 +147,12 @@ int main(int argc, char** argv) {
 			else {
 				cerr << "No path provided for the ground truth" << endl;
 			}
+			break;
 		default:
-			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)', 1: 'Ball Localization (bboxes)', 2: 'Segmentation', 3: 'Video with top-view Map', 4: 'Metrics']" << std::endl;
+			std::cerr << "Output value not recognized, use [0: 'Ball Localization (circles)',\n 1: 'Ball Localization (bboxes)',\n 2: 'Segmentation',\n 3: 'Video with top-view Map',\n 4: 'mIoU',\n 5:'mAP']" << std::endl;
 			break;
 		}
+
 	imshow("Video", output);
 
 	Mat prevFrame;
@@ -195,6 +197,7 @@ int main(int argc, char** argv) {
 		}
 
 		imshow("Video", output);
+
 		prevFrame = frame.clone();
 		// Exit if ESC pressed.
 		int k = waitKey(1);
@@ -203,6 +206,8 @@ int main(int argc, char** argv) {
 			break;
 		}
 	}
+
+	video.release();
 
 	if (stoi(argv[2]) == 4) {
 		drawSegmentationMask(prevFrame, segmMask, segmented, bboxes);

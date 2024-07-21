@@ -4,22 +4,23 @@
 
 void segmentRegionGrowing(cv::Mat src, cv::Mat& dst, int ksize) {
 
+	//pick hsv color at the center of src
 	int centerX = ceil((float)src.cols / 2), centerY = ceil((float)src.rows / 2);
-	int kernelRadius = floor((float)ksize / 2);
 	cv::Mat hsv;
 	cv::cvtColor(src, hsv, cv::COLOR_BGR2HSV);
 	cv::Vec3b centerColor = hsv.at<cv::Vec3b>(centerY, centerX);
 	cv::Mat mask(src.rows, src.cols, CV_8U);
+
+	//region growing initialization
 	cv::Mat segmented(src.rows, src.cols, CV_8U);
 	segmented.setTo(0);
 	std::vector<cv::Point> queueSeeds;
 	queueSeeds.push_back(cv::Point(centerX, centerY));
 	segmented.at<uchar>(centerY, centerX) = 255;
 
-	cv::Vec3b lowerBound(centerColor[0] - 8, 119, 65); // center - 8, 127, 65
-	// game1_clip1 - lower s: 119
-	// game3_clip1 - lower s: 104 (for a correct cut for the first only also 119 should be fine)
-	cv::Vec3b upperBound(centerColor[0] + 8, 255, 230); // center + 8, 255, 230
+	//params definition
+	cv::Vec3b lowerBound(centerColor[0] - 8, 119, 65);
+	cv::Vec3b upperBound(centerColor[0] + 8, 255, 230); 
 
 	cv::inRange(hsv, lowerBound, upperBound, mask);
 
@@ -30,6 +31,7 @@ void segmentRegionGrowing(cv::Mat src, cv::Mat& dst, int ksize) {
 		for (int r = -1; r <= 1; ++r) {
 			for (int c = -1; c <= 1; ++c) {
 				cv::Point nearPoint(actualSeed.x + c, actualSeed.y + r);
+				//growing predicate check
 				if (segmented.at<uchar>(nearPoint.y, nearPoint.x) != 255 && mask.at<uchar>(nearPoint.y, nearPoint.x) == 255) {
 					segmented.at<uchar>(nearPoint.y, nearPoint.x) = 255;
 					queueSeeds.push_back(nearPoint);
@@ -45,21 +47,22 @@ void segmentRegionGrowing(cv::Mat src, cv::Mat& dst, int ksize) {
 }
 
 void detectLinesWithHoughTransform(cv::Mat src, cv::Mat& dst, std::vector<cv::Vec3f>& lines) {
-	bool itWorked = false;
-
 	if (src.type() != CV_8U) {
 		std::cout << "The input image should be a grayscale image (8-bit, single channel)" << std::endl;
 	}
 	else {
-		cv::Mat laplacian_output, canny_output, colored_output;
+		cv::Mat canny_output, colored_output;
 		cv::Mat tempSrc;
 		cv::cvtColor(src, dst, cv::COLOR_GRAY2BGR);
 		src.convertTo(tempSrc, CV_16S);
 
+		//Canny
 		cv::Canny(src, canny_output, 70, 200);
 
+		//Hough transform on canny_output
 		cv::HoughLines(canny_output, lines, 2, CV_PI / 90, 0);
 
+		//find strongest lines
 		sort(lines.begin(), lines.end(), [](const cv::Vec3f& a, const cv::Vec3f& b) {
 			return a[2] > b[2];
 			});
@@ -111,6 +114,7 @@ void getRectFromLines(std::vector<cv::Vec3f> lines, std::vector<cv::Point>& vert
 		}
 	}
 
+	//print debug
 	if (verbose > 0) {
 		std::cout << "seed phase: " << seedPhase << std::endl;
 		for (auto line : nearSeed) {
@@ -121,6 +125,7 @@ void getRectFromLines(std::vector<cv::Vec3f> lines, std::vector<cv::Point>& vert
 		}
 	}
 
+	//intesection calculation
 	float r1, r2, th1, th2, det;
 	for (auto firstLine : nearSeed) {
 		for (auto secondLine : oppositeSeed) {
@@ -133,9 +138,9 @@ void getRectFromLines(std::vector<cv::Vec3f> lines, std::vector<cv::Point>& vert
 			r2 = secondLine[0];
 			th2 = secondLine[1];
 			// security check -> it should not happen
-			if (firstLine[1] != secondLine[1]) {
+			if (th1 != th2) {
 				// computing the intersection point
-				det = sin(firstLine[1] - secondLine[1]);
+				det = sin(th1 - th2);
 
 				vertices.push_back(cv::Point(cvRound(((r2 * sin(th1)) - (r1 * sin(th2))) / det), cvRound(((r1 * cos(th2)) - (r2 * cos(th1))) / det)));
 			}
@@ -143,9 +148,11 @@ void getRectFromLines(std::vector<cv::Vec3f> lines, std::vector<cv::Point>& vert
 				std::cout << "----ERROR!!!!!----\nDivision by 0 detected while computing intersections of lines!" << std::endl;
 			}
 		}
+		//reverse to match verteces order on the table
 		std::reverse(oppositeSeed.begin(), oppositeSeed.end());
 	}
 
+	//print debug
 	if (verbose > 0) {
 		std::cout << "vertices: " << vertices.size() << std::endl;
 	}

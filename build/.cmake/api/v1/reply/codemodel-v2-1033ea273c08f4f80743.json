@@ -1,0 +1,59 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "CV_Final_Project",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "CV_Final_Project::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CV_Final_Project-Debug-b344d4501e85cc43e219.json",
+					"name" : "CV_Final_Project",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build",
+		"source" : "/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 1
+	}
+}

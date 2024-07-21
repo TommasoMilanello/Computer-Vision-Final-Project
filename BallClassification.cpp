@@ -1,15 +1,17 @@
 //AUTHOR: Ilyas Issa
 
 #include "BallClassification.h"
+#include "BallDetection.h"
 
-std::vector<std::vector<int>> classifyBallAlt(const cv::Mat& image, std::vector<cv::Point> centerVector, std::vector<int> radiusVector) {
+std::vector<std::vector<int>> classifyBalls(const cv::Mat& image, std::vector<cv::Point> centerVector, std::vector<int> radiusVector) {
 	std::vector<std::vector<int>> classifiedBalls;
 	std::vector<int> whitePixelsInRoi, blackPixelsInRoi, blackList;
 	int maxElWhite, maxElBlack;
 
+	//counting white and black pixels in each ball
 	for (int i = 0; i < centerVector.size(); ++i) {
 		cv::Mat whitePixels, blackPixels;
-		cv::Mat roi = extractRoi2(image, centerVector[i], radiusVector[i]);
+		cv::Mat roi = extractRoi(image, centerVector[i], radiusVector[i]);
 		
 		cv::Mat hsvRoi;
 		cv::cvtColor(roi, hsvRoi, cv::COLOR_BGR2HSV);
@@ -21,6 +23,7 @@ std::vector<std::vector<int>> classifyBallAlt(const cv::Mat& image, std::vector<
 		blackPixelsInRoi.push_back(cv::sum(blackPixels)[0]);
 	}
 
+	//select white and striped balls
 	maxElWhite = std::distance(whitePixelsInRoi.begin(), std::max_element(whitePixelsInRoi.begin(), whitePixelsInRoi.end()));
 	for (int i = 0; i < whitePixelsInRoi.size(); ++i) {
 		if (i == maxElWhite && whitePixelsInRoi[i] >= CLASSIFY_WHITE_THRESH) {
@@ -33,6 +36,7 @@ std::vector<std::vector<int>> classifyBallAlt(const cv::Mat& image, std::vector<
 		}
 	}
 
+	//select black and solid balls
 	maxElBlack = std::distance(blackPixelsInRoi.begin(), std::max_element(blackPixelsInRoi.begin(), blackPixelsInRoi.end()));
 	for (int i = 0; i < blackPixelsInRoi.size(); ++i) {
 		if (i == maxElBlack && blackPixelsInRoi[i] >= CLASSIFY_BLACK_THRESH) {
@@ -44,22 +48,4 @@ std::vector<std::vector<int>> classifyBallAlt(const cv::Mat& image, std::vector<
 	}
 
 	return classifiedBalls;
-}
-
-cv::Mat extractRoi2(const cv::Mat& image, cv::Point center, int radius) {
-	double factor = 0.9;
-	int r = static_cast<int>(radius * factor);
-	int x1 = cv::max(center.x - r, 0);
-	int y1 = cv::max(center.y - r, 0);
-	int x2 = cv::min(center.x + r, image.cols);
-	int y2 = cv::min(center.y + r, image.rows);
-
-	cv::Mat roi = image(cv::Rect(x1, y1, x2 - x1, y2 - y1));
-
-	cv::Mat mask = cv::Mat::zeros(roi.size(), roi.type());
-	cv::circle(mask, cv::Point(r, r), r, cv::Scalar(255, 255, 255), cv::FILLED);
-
-	cv::Mat maskedRoi;
-	bitwise_and(roi, mask, maskedRoi);
-	return maskedRoi;
 }

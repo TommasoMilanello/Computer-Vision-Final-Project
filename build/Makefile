@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project
+CMAKE_SOURCE_DIR = /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build
+CMAKE_BINARY_DIR = /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -250,6 +250,33 @@ DisplayFunctions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.s
 .PHONY : DisplayFunctions.cpp.s
 
+EvaluationMetrics.o: EvaluationMetrics.cpp.o
+
+.PHONY : EvaluationMetrics.o
+
+# target to build an object file
+EvaluationMetrics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o
+.PHONY : EvaluationMetrics.cpp.o
+
+EvaluationMetrics.i: EvaluationMetrics.cpp.i
+
+.PHONY : EvaluationMetrics.i
+
+# target to preprocess a source file
+EvaluationMetrics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.i
+.PHONY : EvaluationMetrics.cpp.i
+
+EvaluationMetrics.s: EvaluationMetrics.cpp.s
+
+.PHONY : EvaluationMetrics.s
+
+# target to generate assembly for a file
+EvaluationMetrics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.s
+.PHONY : EvaluationMetrics.cpp.s
+
 MainUtilities.o: MainUtilities.cpp.o
 
 .PHONY : MainUtilities.o
@@ -303,60 +330,6 @@ MiniMap.s: MiniMap.cpp.s
 MiniMap.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.s
 .PHONY : MiniMap.cpp.s
-
-ReportUtilitiesFunctions.o: ReportUtilitiesFunctions.cpp.o
-
-.PHONY : ReportUtilitiesFunctions.o
-
-# target to build an object file
-ReportUtilitiesFunctions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o
-.PHONY : ReportUtilitiesFunctions.cpp.o
-
-ReportUtilitiesFunctions.i: ReportUtilitiesFunctions.cpp.i
-
-.PHONY : ReportUtilitiesFunctions.i
-
-# target to preprocess a source file
-ReportUtilitiesFunctions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.i
-.PHONY : ReportUtilitiesFunctions.cpp.i
-
-ReportUtilitiesFunctions.s: ReportUtilitiesFunctions.cpp.s
-
-.PHONY : ReportUtilitiesFunctions.s
-
-# target to generate assembly for a file
-ReportUtilitiesFunctions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.s
-.PHONY : ReportUtilitiesFunctions.cpp.s
-
-SegmentationEvaluation.o: SegmentationEvaluation.cpp.o
-
-.PHONY : SegmentationEvaluation.o
-
-# target to build an object file
-SegmentationEvaluation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o
-.PHONY : SegmentationEvaluation.cpp.o
-
-SegmentationEvaluation.i: SegmentationEvaluation.cpp.i
-
-.PHONY : SegmentationEvaluation.i
-
-# target to preprocess a source file
-SegmentationEvaluation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.i
-.PHONY : SegmentationEvaluation.cpp.i
-
-SegmentationEvaluation.s: SegmentationEvaluation.cpp.s
-
-.PHONY : SegmentationEvaluation.s
-
-# target to generate assembly for a file
-SegmentationEvaluation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CV_Final_Project.dir/build.make CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.s
-.PHONY : SegmentationEvaluation.cpp.s
 
 TableDetection.o: TableDetection.cpp.o
 
@@ -433,18 +406,15 @@ help:
 	@echo "... DisplayFunctions.o"
 	@echo "... DisplayFunctions.i"
 	@echo "... DisplayFunctions.s"
+	@echo "... EvaluationMetrics.o"
+	@echo "... EvaluationMetrics.i"
+	@echo "... EvaluationMetrics.s"
 	@echo "... MainUtilities.o"
 	@echo "... MainUtilities.i"
 	@echo "... MainUtilities.s"
 	@echo "... MiniMap.o"
 	@echo "... MiniMap.i"
 	@echo "... MiniMap.s"
-	@echo "... ReportUtilitiesFunctions.o"
-	@echo "... ReportUtilitiesFunctions.i"
-	@echo "... ReportUtilitiesFunctions.s"
-	@echo "... SegmentationEvaluation.o"
-	@echo "... SegmentationEvaluation.i"
-	@echo "... SegmentationEvaluation.s"
 	@echo "... TableDetection.o"
 	@echo "... TableDetection.i"
 	@echo "... TableDetection.s"

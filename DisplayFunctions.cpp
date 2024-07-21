@@ -15,7 +15,6 @@ void drawSegmentation(const cv::Mat& src, cv::Mat& dst, const std::vector<cv::Po
 void drawSegmentationMask(const cv::Mat& src, cv::Mat& dst, const cv::Mat& segmented, const std::vector<BBox> bboxes) {
 	dst = cv::Mat::zeros(src.rows, src.cols, CV_8U);
 
-	//cv::drawContours(dst, std::vector<std::vector<cv::Point>>{vertices}, -1, PLAYING_FIELD_CATEG, cv::FILLED);
 	std::vector<std::vector<cv::Point>> contours;
 	cv::findContours(segmented, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
 	cv::drawContours(dst, contours, -1, PLAYING_FIELD_CATEG, cv::FILLED);
@@ -42,10 +41,5 @@ void drawBallLocalization(const cv::Mat& src, cv::Mat& dst, const std::vector<cv
 
 void drawFrameWithMiniMap(const cv::Mat& src, cv::Mat& dst, const std::vector<BBox> bboxes, const MiniMap& map) {
 	dst = src.clone();
-
-	for (auto& bbox : bboxes) {
-		cv::rectangle(dst, bbox.asRect(), BBox::OBJECT_COLORS_BASED_ON_CATEG_ID[bbox.getCategID()]);
-	}
-
 	map.drawMiniMapOnFrame(dst);
 }

@@ -62,6 +62,7 @@ void MiniMap::drawMiniMapOnFrame(cv::Mat& frame) const {
 void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::Point center, int verbose) {
 	std::vector<cv::Point> orderedCorners;
 
+	//pick closest corner to the origin
 	float minDistFromOrigin = INFINITY;
 	int closestToOriginCornerIndex = 0;
 	for (int i = 0; i < 4; ++i) {
@@ -76,32 +77,34 @@ void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::
 		std::cout << "closestToOriginCornerIndex: " << closestToOriginCornerIndex << " - " << corners[closestToOriginCornerIndex] << std::endl;
 	}
 
-	// we start working with orderedCorners immediately
-	// => we exchange the positions of the corners later if needed
+	//shifting the corners s.t. the first on the vector is the closest to the origin (preserving the ordering)
 	for (int i = 0; i < 4; ++i) {
 		orderedCorners.push_back(corners[(closestToOriginCornerIndex + i) % 4]);
 	}
 
 	// check the alignment
 	std::vector<float> distCornersFromCenter;
-	int farthesCornerFromCenterIndex;
+	int farthestCornerFromCenterIndex;
 	int farthestDist = 0;
 	for (int i = 0; i < 4; ++i) {
 		distCornersFromCenter.push_back(euclideanDistance(orderedCorners[i], center));
 		if (distCornersFromCenter[i] > farthestDist) {
 			farthestDist = distCornersFromCenter[i];
-			farthesCornerFromCenterIndex = i;
+			farthestCornerFromCenterIndex = i;
 		}
 	}
-	shiftToBegin(distCornersFromCenter, farthesCornerFromCenterIndex);
+
+	//shifting the corners s.t. the first on the vector is the farthest from the center of the table (preserving the ordering)
+	//see report for details
+	shiftToBegin(distCornersFromCenter, farthestCornerFromCenterIndex);
 	std::vector<int> longEdgeExtremeIndexes = (distCornersFromCenter[1] <= distCornersFromCenter[3]) ? std::vector<int>{0, 1} : std::vector<int>{ 3, 0 };
-	// mess
 	bool isHorizontal = abs(
 		orderedCorners[longEdgeExtremeIndexes[0]].x - orderedCorners[longEdgeExtremeIndexes[1]].x
 	) > abs(
 		orderedCorners[longEdgeExtremeIndexes[0]].y - orderedCorners[longEdgeExtremeIndexes[1]].y
 	);
 
+	//output debug
 	if (verbose > 1) {
 		std::cout << "Aligmnent: " << (isHorizontal ? "Horizontal" : "Vertical") << std::endl;
 		std::cout << "Boundaries of the longest edge: " << orderedCorners[longEdgeExtremeIndexes[0]] << ", " << orderedCorners[longEdgeExtremeIndexes[1]] << std::endl;
@@ -131,25 +134,8 @@ void MiniMap::computeHomography(const std::vector<cv::Point> corners, const cv::
 		std::cout << " (center)" << std::endl;
 	}
 
+	//homography matrix computation
 	this->H = cv::findHomography(orderedCorners, this->TableMainPoints);
-
-	// debug for the corners
-	//cv::Mat pointAsMat, projectedPointAsMat;
-	//cv::Point projectedPoint;
-	//for (int i = 0; i < orderedCorners.size(); ++i) {
-	//	pointAsMat = (cv::Mat_<double>(3, 1) << orderedCorners[i].x,
-	//		orderedCorners[i].y,
-	//		1);
-	//	projectedPointAsMat = this->H * pointAsMat;
-	//	projectedPointAsMat /= projectedPointAsMat.at<double>(2);
-	//	projectedPoint = cv::Point(
-	//		cvRound(projectedPointAsMat.at<double>(0, 0)),
-	//		cvRound(projectedPointAsMat.at<double>(1, 0))
-	//	);
-
-	//	//std::cout << "Projected Point: " << projectedPoint << std::endl;
-	//	cv::circle(this->MapImg, projectedPoint, 2, cv::Scalar(0, 128, 128), 2);
-	//}
 }
 
 void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point center, const std::vector<BBox> bboxes, bool approxRadius) {
@@ -186,6 +172,7 @@ void MiniMap::initMiniMap(const std::vector<cv::Point> corners, const cv::Point 
 void MiniMap::updateMiniMap(const std::vector<BBox> newBboxes) {
 	this->MapImg = this->Background.clone();
 
+	//update balls history
 	for (int i = 0; i < newBboxes.size(); ++i) {
 		cv::Point projectedCenter = projectPoint(newBboxes[i].getCenter(), this->H);
 		if (this->ballCentersHistory[i].back() != projectedCenter) {

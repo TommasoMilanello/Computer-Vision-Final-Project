@@ -62,10 +62,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project
+CMAKE_SOURCE_DIR = /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build
+CMAKE_BINARY_DIR = /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/CV_Final_Project.dir/depend.make
@@ -78,133 +78,120 @@ include CMakeFiles/CV_Final_Project.dir/flags.make
 
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CV_Final_Project.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/main.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CV_Final_Project.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/main.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/main.cpp
 
 CMakeFiles/CV_Final_Project.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/main.cpp > CMakeFiles/CV_Final_Project.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/main.cpp > CMakeFiles/CV_Final_Project.dir/main.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/main.cpp -o CMakeFiles/CV_Final_Project.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/main.cpp -o CMakeFiles/CV_Final_Project.dir/main.cpp.s
 
 CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o: ../BallDetection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallDetection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.cpp
 
 CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallDetection.cpp > CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.cpp > CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallDetection.cpp -o CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.cpp -o CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.s
 
 CMakeFiles/CV_Final_Project.dir/BBox.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/BBox.cpp.o: ../BBox.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CV_Final_Project.dir/BBox.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/BBox.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CV_Final_Project.dir/BBox.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/BBox.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BBox.cpp
 
 CMakeFiles/CV_Final_Project.dir/BBox.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/BBox.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.cpp > CMakeFiles/CV_Final_Project.dir/BBox.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BBox.cpp > CMakeFiles/CV_Final_Project.dir/BBox.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/BBox.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/BBox.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.cpp -o CMakeFiles/CV_Final_Project.dir/BBox.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BBox.cpp -o CMakeFiles/CV_Final_Project.dir/BBox.cpp.s
 
 CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o: ../DisplayFunctions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/DisplayFunctions.cpp
 
 CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.cpp > CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/DisplayFunctions.cpp > CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.cpp -o CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/DisplayFunctions.cpp -o CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.s
 
 CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o: ../MiniMap.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MiniMap.cpp
 
 CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.cpp > CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MiniMap.cpp > CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.cpp -o CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MiniMap.cpp -o CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.s
 
-CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
-CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o: ../SegmentationEvaluation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/SegmentationEvaluation.cpp
+CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
+CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o: ../EvaluationMetrics.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/EvaluationMetrics.cpp
 
-CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/SegmentationEvaluation.cpp > CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.i
+CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/EvaluationMetrics.cpp > CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.i
 
-CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/SegmentationEvaluation.cpp -o CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.s
+CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/EvaluationMetrics.cpp -o CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.s
 
 CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o: ../TableDetection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/TableDetection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/TableDetection.cpp
 
 CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/TableDetection.cpp > CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/TableDetection.cpp > CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/TableDetection.cpp -o CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.s
-
-CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
-CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o: ../ReportUtilitiesFunctions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp
-
-CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp > CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.i
-
-CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/ReportUtilitiesFunctions.cpp -o CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/TableDetection.cpp -o CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.s
 
 CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o: ../BallClassification.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.cpp
 
 CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp > CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.cpp > CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BallClassification.cpp -o CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.cpp -o CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.s
 
 CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o: CMakeFiles/CV_Final_Project.dir/flags.make
 CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o: ../MainUtilities.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o -c /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MainUtilities.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o -c /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MainUtilities.cpp
 
 CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MainUtilities.cpp > CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MainUtilities.cpp > CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.i
 
 CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MainUtilities.cpp -o CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/MainUtilities.cpp -o CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.s
 
 # Object files for target CV_Final_Project
 CV_Final_Project_OBJECTS = \
@@ -213,9 +200,8 @@ CV_Final_Project_OBJECTS = \
 "CMakeFiles/CV_Final_Project.dir/BBox.cpp.o" \
 "CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o" \
 "CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o" \
-"CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o" \
+"CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o" \
 "CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o" \
-"CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o" \
 "CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o" \
 "CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o"
 
@@ -227,9 +213,8 @@ CV_Final_Project: CMakeFiles/CV_Final_Project.dir/BallDetection.cpp.o
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/BBox.cpp.o
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/DisplayFunctions.cpp.o
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/MiniMap.cpp.o
-CV_Final_Project: CMakeFiles/CV_Final_Project.dir/SegmentationEvaluation.cpp.o
+CV_Final_Project: CMakeFiles/CV_Final_Project.dir/EvaluationMetrics.cpp.o
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/TableDetection.cpp.o
-CV_Final_Project: CMakeFiles/CV_Final_Project.dir/ReportUtilitiesFunctions.cpp.o
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/BallClassification.cpp.o
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/MainUtilities.cpp.o
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/build.make
@@ -286,7 +271,7 @@ CV_Final_Project: /usr/local/lib/libopencv_photo.so.4.8.1
 CV_Final_Project: /usr/local/lib/libopencv_imgproc.so.4.8.1
 CV_Final_Project: /usr/local/lib/libopencv_core.so.4.8.1
 CV_Final_Project: CMakeFiles/CV_Final_Project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable CV_Final_Project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable CV_Final_Project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CV_Final_Project.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -299,6 +284,6 @@ CMakeFiles/CV_Final_Project.dir/clean:
 .PHONY : CMakeFiles/CV_Final_Project.dir/clean
 
 CMakeFiles/CV_Final_Project.dir/depend:
-	cd /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build /home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/build/CMakeFiles/CV_Final_Project.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build /home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/build/CMakeFiles/CV_Final_Project.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/CV_Final_Project.dir/depend
 

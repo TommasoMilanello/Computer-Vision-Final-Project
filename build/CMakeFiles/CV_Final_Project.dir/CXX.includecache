@@ -6,45 +6,39 @@
 
 #IncludeRegexTransform: 
 
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.h
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BBox.h
 opencv2/highgui.hpp
 -
 
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.cpp
-DisplayFunctions.h
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.h
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.cpp
+BallClassification.h
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.h
+BallDetection.h
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.h
 
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/DisplayFunctions.h
-opencv2/highgui.hpp
--
-opencv2/imgproc.hpp
--
-BBox.h
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.h
-MiniMap.h
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.h
-
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/MiniMap.h
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.h
 opencv2/highgui.hpp
 -
 opencv2/imgproc.hpp
 -
-opencv2/calib3d.hpp
+iostream
+-
+
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.cpp
+BallDetection.h
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.h
+
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallDetection.h
+opencv2/highgui.hpp
+-
+opencv2/imgproc.hpp
 -
 iostream
 -
 BBox.h
-/home/local/rutamat14432/Desktop/CVproject/Computer-Vision-Final-Project/BBox.h
-
-/usr/local/include/opencv4/opencv2/calib3d.hpp
-opencv2/core.hpp
-/usr/local/include/opencv4/opencv2/opencv2/core.hpp
-opencv2/core/types.hpp
-/usr/local/include/opencv4/opencv2/opencv2/core/types.hpp
-opencv2/features2d.hpp
-/usr/local/include/opencv4/opencv2/opencv2/features2d.hpp
-opencv2/core/affine.hpp
-/usr/local/include/opencv4/opencv2/opencv2/core/affine.hpp
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BBox.h
+BallClassification.h
+/home/local/milatom15240/Desktop/CV_F_P/Computer-Vision-Final-Project/BallClassification.h
 
 /usr/local/include/opencv4/opencv2/core.hpp
 opencv2/core/cvdef.h
@@ -73,10 +67,6 @@ opencv2/core/optim.hpp
 /usr/local/include/opencv4/opencv2/opencv2/core/optim.hpp
 opencv2/core/ovx.hpp
 /usr/local/include/opencv4/opencv2/opencv2/core/ovx.hpp
-
-/usr/local/include/opencv4/opencv2/core/affine.hpp
-opencv2/core.hpp
--
 
 /usr/local/include/opencv4/opencv2/core/base.hpp
 opencv2/opencv_modules.hpp
@@ -373,26 +363,6 @@ opencv2/core/cvdef.h
 /usr/local/include/opencv4/opencv2/core/opencv2/core/cvdef.h
 assert.h
 -
-
-/usr/local/include/opencv4/opencv2/features2d.hpp
-opencv2/opencv_modules.hpp
-/usr/local/include/opencv4/opencv2/opencv2/opencv_modules.hpp
-opencv2/core.hpp
-/usr/local/include/opencv4/opencv2/opencv2/core.hpp
-opencv2/flann/miniflann.hpp
-/usr/local/include/opencv4/opencv2/opencv2/flann/miniflann.hpp
-
-/usr/local/include/opencv4/opencv2/flann/config.h
-
-/usr/local/include/opencv4/opencv2/flann/defines.h
-config.h
-/usr/local/include/opencv4/opencv2/flann/config.h
-
-/usr/local/include/opencv4/opencv2/flann/miniflann.hpp
-opencv2/core.hpp
-/usr/local/include/opencv4/opencv2/flann/opencv2/core.hpp
-opencv2/flann/defines.h
-/usr/local/include/opencv4/opencv2/flann/opencv2/flann/defines.h
 
 /usr/local/include/opencv4/opencv2/highgui.hpp
 opencv2/core.hpp

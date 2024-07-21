@@ -81,12 +81,6 @@ cv::Point computeCenterOfTableShape(std::vector<cv::Point> vertices) {
 	);
 }
 
-cv::Point differenceVector(cv::Point p1, cv::Point p2) {
-	int diffX = p2.x - p1.x;
-	int diffY = p2.y - p1.y;
-	return cv::Point(diffX, diffY);
-}
-
 std::vector<BBox> convertIntoBBoxes(std::vector<std::vector<int>> toBboxes) {
 	std::vector<BBox> result;
 	int i = 0;
@@ -98,7 +92,6 @@ std::vector<BBox> convertIntoBBoxes(std::vector<std::vector<int>> toBboxes) {
 			toBbox[2] * 2,
 			toBbox[3]
 		));
-		//std::cout << "ahahah: " << result[i++].asRect() << std::endl;
 	}
 	return result;
 }
